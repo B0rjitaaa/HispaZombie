@@ -28,7 +28,7 @@
 | Efectos de sonido | **jsfxr** | Exportar a `.ogg` |
 | Datos del juego | **JSON** | Biblioteca estándar de Python: funciona seguro en web |
 | Entorno y dependencias | **uv** | Instala Python 3.12 y las dependencias (`uv sync`) |
-| Control de versiones | **git** + GitHub | Repositorio: https://github.com/B0rjitaaa/HipaZombie |
+| Control de versiones | **git** + GitHub | Repositorio: https://github.com/B0rjitaaa/HispaZombie |
 | Calidad | **pytest** (tests), **ruff** (estilo y errores) | |
 | Editor | VS Code + extensión de Python | |
 
