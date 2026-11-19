@@ -57,10 +57,10 @@
 
 **Pendiente de definir:**
 * Nombre y aspecto del protagonista.
-* Efectos de la mutación en el juego. Ideas sobre la mesa (sin decidir):
-  * Resistencia a la radiación: puede entrar en zonas que matarían a otros; justificaría que sea él quien suba a la Torre Pelli. (Si se elige, la descontaminación sigue siendo necesaria para los demás supervivientes y para cultivar.)
-  * Habilidades mutantes que se desbloquean al avanzar, con humor: "Cafeína radiactiva" (recuperar energía), "Siesta curativa" (curarse durmiendo), restos de la crisálida como armadura.
-  * Gancho narrativo: ¿por qué mutó él y no otros? Otros personajes podrían querer estudiarlo o perseguirlo.
+* Gancho narrativo de la mutación: ¿por qué mutó él y no otros? Otros personajes podrían querer estudiarlo o perseguirlo.
+* Resistencia a la radiación como ventaja pasiva (propuesta, sin confirmar): puede entrar en zonas que matarían a otros y justificaría que sea él quien suba a la Torre Pelli. La descontaminación seguiría siendo necesaria para los demás supervivientes y para cultivar.
+
+**Decisión — La mutación en el juego:** la mutación es la fuente de las **habilidades mutantes**, que el protagonista aprende al subir de nivel a medida que la mutación "despierta" (ver sección 4.1).
 
 ---
 
@@ -172,6 +172,26 @@ Macarena ───────── Nervión
   * **Divisa de alto valor:** Cartuchos de munición intactos y filtros de respiración limpios.
   * **Moneda fraccionaria (calderilla):** Sellos de plomo o fichas acuñadas a partir de fragmentos de cerámica trianera rescatada.
 
+## 4.1. Sistema de Combate
+
+**Decisiones tomadas:**
+* **Estilo:** combate por turnos inspirado en los RPG de criaturas: el protagonista (que viaja solo) se enfrenta al enemigo con un menú de **Habilidades**, **Objetos** y **Huir**. El más rápido actúa primero.
+* **Dos familias de habilidades:**
+  * **Habilidades mutantes:** se aprenden **al subir de nivel** (la mutación va despertando). Gastan **Cafeína**, una barra de energía que se recupera con café, descansando o en la posada.
+  * **Técnicas callejeras:** se **compran con fichas** a NPC que las enseñan. Cada una tiene **usos limitados** que se recargan al descansar.
+* **6 huecos de habilidades:** en combate solo se pueden usar 6 habilidades equipadas; se cambian fuera de combate.
+* **Encuentros mixtos:** combates **aleatorios** al caminar por zonas peligrosas (ceniza, ruinas, alcantarillas…) y enemigos **visibles en el mapa** para jefes y combates importantes. Las zonas seguras no tienen encuentros.
+* **Tipos o afinidades:** pocos tipos (4 o 5). Cada enemigo es débil o resistente a algunos.
+
+**Propuestas (pendientes de confirmar):**
+* **Tipos:** Físico, Radiación, Calor, Tóxico y Labia (ataques de palabra: insultos, regateo, burocracia).
+* **Ejemplos de habilidades mutantes:** *Cafeína radiactiva* (recupera energía), *Siesta curativa* (cura durmiendo un turno), *Piel de crisálida* (sube la defensa), *Brillo verde* (ataque de radiación).
+* **Ejemplos de técnicas callejeras:** *Chanclazo* (Físico), *Abanico de feria* (Calor), *Bocadillo de calamares* (cura), *Insulto con arte* (Labia, baja la defensa del enemigo).
+* **Estadísticas:** Vida, Cafeína, Ataque, Defensa, Mutación (potencia de las habilidades mutantes) y Velocidad.
+* **Estados alterados:** Radiación (daño por turno), Golpe de calor (enlaza con la mecánica de Calor Radiactivo), Envenenado, Aturdido y *Siestón* (dormido).
+* **Enemigos iniciales:** cotorras mutantes, palomas radiactivas, ratas de alcantarilla gigantes y perros del Yermo. Más adelante, miembros de las facciones.
+* **Derrota:** el protagonista se despierta en el último lugar seguro con menos fichas ("otra siesta, ya ves").
+
 ---
 
 ## 5. Facciones del Conflicto
@@ -191,7 +211,7 @@ Resumen de todo lo que queda por decidir. Las decisiones ya tomadas están en su
 
 ### Historia y personajes
 * **Nombre y aspecto del protagonista** (sección 1.2). Para la Fase 1 se pueden usar un nombre y un sprite provisionales.
-* **Efectos de la mutación del protagonista** (sección 1.2). Ideas sobre la mesa: resistencia a la radiación, habilidades mutantes con humor ("Cafeína radiactiva", "Siesta curativa", armadura de crisálida), gancho narrativo de por qué mutó él.
+* **Mutación del protagonista** (sección 1.2): gancho narrativo de por qué mutó él y si la resistencia a la radiación es una ventaja pasiva.
 * **NPC que ayudan al protagonista** y le dan información (sección 1.2).
 * **Identidad del científico** y cómo se va descubriendo a lo largo del juego.
 * **NPC que fabrica el prototipo de descontaminador** del Alamillo (propuesta: un chatarrero de Triana).
@@ -205,7 +225,7 @@ Resumen de todo lo que queda por decidir. Las decisiones ya tomadas están en su
 * **Rehacer el mapa de pergamino** con las 11 zonas del grafo (sección 2.1), sin etiquetas en la imagen para poner los nombres desde el juego.
 
 ### Sistemas
-* **Combate 1 contra N:** estadísticas, fórmulas, habilidades y equipo.
+* **Combate** (sección 4.1): confirmar tipos, estadísticas, estados, enemigos y penalización por derrota; si hay combates contra varios enemigos a la vez; lista de habilidades y precios.
 * **Calor Radiactivo** (sección 4): cómo se adapta a un RPG por turnos (propuesta: estado alterado "Golpe de calor" y agua como objeto de supervivencia).
 * **Economía:** fichas de cerámica como dinero; papel de cartuchos y filtros.
 * **Asentamiento:** lista de servicios que se desbloquean y qué supervivientes los abren.

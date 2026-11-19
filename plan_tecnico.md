@@ -9,7 +9,7 @@
 * **Tipo de juego:** RPG 2D cenital al estilo RPG Maker 2000: movimiento en cuadrícula, cajas de diálogo, eventos, combate por turnos.
 * **Lenguaje:** Python 3.12.
 * **Plataformas:** Web (navegador, publicado en itch.io) y escritorio (Windows, macOS, Linux).
-* **Protagonista único:** no hay grupo, así que el combate es **1 contra N** (más sencillo de programar y equilibrar).
+* **Protagonista único:** no hay grupo. El combate es por turnos con habilidades que se aprenden o se compran (diseño en la sección 4.1 del GDD).
 
 ---
 
@@ -80,7 +80,7 @@ hispazombie/
   saves.py                 # Guardar y cargar la partida
   events/
     interpreter.py         # Intérprete de scripts de eventos (comandos y condiciones)
-  battle/                  # (Fase 3) Combate por turnos 1 contra N
+  battle/                  # (Fase 3) Combate por turnos
   ui/
     message_box.py  choice_box.py  pause_menu.py  widgets.py   # (Fase 4) tienda
   scenes/
@@ -150,8 +150,10 @@ Las duraciones son orientativas para una persona a tiempo parcial.
 * **Hito:** NPC con diálogos ramificados que recuerdan lo que has hecho, y partida guardada.
 
 ### Fase 3: combate (3-4 semanas)
-* Combate por turnos 1 contra N, vista frontal: Atacar, Habilidad, Objeto, Huir.
-* Encuentros aleatorios por zona y combates fijos (jefes).
+* Combate por turnos, vista frontal: Habilidades, Objetos, Huir (sección 4.1 del GDD).
+* Habilidades mutantes (por nivel, gastan Cafeína) y técnicas callejeras (compradas, usos limitados), 6 huecos equipables.
+* Tipos con debilidades y resistencias.
+* Encuentros aleatorios en zonas peligrosas y enemigos visibles en el mapa (jefes y combates importantes).
 * Experiencia, niveles, estados alterados.
 * Habilidades mutantes del protagonista (cuando se definan en el GDD).
 * **Hito:** combatir contra mutantes en las afueras de la Cartuja.
