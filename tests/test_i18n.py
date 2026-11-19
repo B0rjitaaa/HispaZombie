@@ -29,3 +29,5 @@ def test_catalog_contains_every_game_text():
     assert items.name("water_bottle") in catalog
     assert "Está vacío." in catalog
     assert "Obtienes: {item}." in catalog
+    assert "Partida guardada." in catalog
+    assert "No se ha podido guardar la partida." in catalog

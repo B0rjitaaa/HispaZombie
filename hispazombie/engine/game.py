@@ -106,6 +106,8 @@ class Game:
             self.screen.fill((0, 0, 0))
             hd_text.layer.clear()
             for scene in self.scenes:
+                if scene.hides_text_below:
+                    hd_text.layer.clear()
                 scene.draw(self.screen)
             self._present()
 

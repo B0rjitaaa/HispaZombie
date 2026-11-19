@@ -10,13 +10,13 @@ import i18n
 from config import FPS, HEIGHT, LANGUAGE, TITLE, WIDTH
 from engine import resources
 from engine.game import Game
-from scenes.map_scene import MapScene
+from scenes.title_scene import TitleScene
 
 
 async def main() -> None:
     i18n.set_language(LANGUAGE, resources.path("i18n"))
     game = Game(TITLE, WIDTH, HEIGHT, FPS)
-    await game.run(MapScene("bunker"))
+    await game.run(TitleScene())
 
 
 # pygbag necesita que el juego arranque con asyncio.run(main()) al final de main.py.

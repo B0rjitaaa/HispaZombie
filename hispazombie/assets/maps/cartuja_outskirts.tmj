@@ -10,7 +10,7 @@
  "tilewidth": 16,
  "tileheight": 16,
  "nextlayerid": 5,
- "nextobjectid": 14,
+ "nextobjectid": 15,
  "properties": [
   {
    "name": "name",
@@ -2748,6 +2748,39 @@
        "name": "text",
        "type": "string",
        "value": "Camino hacia el río y Triana.\n\n(Este camino se abrirá cuando el resto de Sevilla esté construida. Que con las obras de aquí ya se sabe...)"
+      }
+     ]
+    },
+    {
+     "id": 14,
+     "name": "scrapper",
+     "type": "npc",
+     "x": 224,
+     "y": 176,
+     "width": 16,
+     "height": 16,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "id",
+       "type": "string",
+       "value": "scrapper"
+      },
+      {
+       "name": "sprite",
+       "type": "string",
+       "value": "scrapper"
+      },
+      {
+       "name": "facing",
+       "type": "string",
+       "value": "down"
+      },
+      {
+       "name": "script",
+       "type": "string",
+       "value": "cartuja_outskirts/scrapper"
       }
      ]
     }

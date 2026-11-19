@@ -70,21 +70,24 @@ hispazombie/
     resources.py           # Carga y caché de imágenes y fuentes
     text.py                # Ajuste de líneas y páginas de diálogo
     audio.py               # (Fase 4) Música y efectos
-    save.py                # (Fase 2) Guardar/cargar: archivo o localStorage
+    storage.py             # Almacenamiento: archivo (escritorio) o localStorage (web)
+    hd_text.py             # Texto en alta resolución por encima del pixel art
   world/
     tiled_map.py           # Carga de .tmj, capas, colisiones por tile
     camera.py
     movement.py            # Movimiento en cuadrícula
     character.py           # Personaje con sprite animado
-  events/                  # (Fase 2) Intérprete de comandos de evento
+  saves.py                 # Guardar y cargar la partida
+  events/
+    interpreter.py         # Intérprete de scripts de eventos (comandos y condiciones)
   battle/                  # (Fase 3) Combate por turnos 1 contra N
   ui/
-    message_box.py         # Caja de mensajes; (Fases 2-4) menús, inventario, tienda
+    message_box.py  choice_box.py  pause_menu.py  widgets.py   # (Fase 4) tienda
   scenes/
-    map_scene.py           # Exploración; (más adelante) título, mapa del mundo, combate
+    map_scene.py  title_scene.py   # (más adelante) mapa del mundo, combate
   settlement/              # (Fase 6) Ciudad del Alamillo
   assets/
-    maps/  tilesets/  sprites/  portraits/  fonts/  data/  i18n/  music/  sfx/
+    maps/  events/  tilesets/  sprites/  portraits/  fonts/  data/  i18n/  music/  sfx/
 tests/
 tools/                     # Generadores de assets provisionales y extractor de textos
 ```
@@ -140,7 +143,7 @@ Las duraciones son orientativas para una persona a tiempo parcial.
 * Cofres y carteles con texto (los documentos de la quinta bomba de Palomares).
 * **Hito:** el protagonista despierta, sale del búnker y explora las afueras leyendo pistas.
 
-### Fase 2: eventos, inventario y guardado (2-3 semanas)
+### Fase 2: eventos, inventario y guardado (2-3 semanas) ✅ completada
 * Intérprete de eventos con los comandos básicos (texto, elegir, si, interruptores, variables, dar/quitar objeto, teletransportar, mover NPC).
 * Inventario y fichas de cerámica (dinero).
 * Guardar y cargar (archivo y localStorage).

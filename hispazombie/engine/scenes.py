@@ -19,6 +19,10 @@ class Scene:
     """Clase base de todas las escenas. Las subclases sobrescriben lo que necesiten."""
 
     manager: SceneManager | None = None
+    # El texto HD se dibuja siempre por encima del pixel art. Una escena que tapa a las de
+    # debajo (p. ej. una pantalla completa de menú) pone esto a True para que no se
+    # transparente el texto de las escenas inferiores.
+    hides_text_below = False
 
     def on_enter(self) -> None:
         """Se llama cuando la escena se coloca en la pila."""

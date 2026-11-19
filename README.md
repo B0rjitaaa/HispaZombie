@@ -27,7 +27,9 @@ uv run python hispazombie/main.py
 uv run pygbag hispazombie
 ```
 
-Controles: flechas o WASD para moverse. Z / Enter / Espacio para aceptar e interactuar. X / Esc para cancelar. F11 (o Alt+Enter) para pantalla completa en escritorio.
+Controles: flechas o WASD para moverse. Z / Enter / Espacio para aceptar, hablar e interactuar. X / Esc para cancelar y abrir el menú (objetos, guardar). F11 (o Alt+Enter) para pantalla completa en escritorio.
+
+La partida se guarda desde el menú. En escritorio se guarda en la carpeta de datos del usuario (en macOS, `~/Library/Application Support/HispaZombie/`); en el navegador, en el `localStorage`.
 
 ## Desarrollo
 
@@ -64,7 +66,9 @@ uv run pyinstaller --noconfirm --windowed --name HispaZombie --paths hispazombie
 Los mapas están en `hispazombie/assets/maps/` en formato **Tiled JSON (.tmj)** y se editan con [Tiled](https://www.mapeditor.org/). Al guardar, usa siempre el formato `.tmj` con las capas en CSV (la opción por defecto).
 
 * Capas de tiles: `ground` y `objects` (debajo del personaje) y `above` (por encima).
-* Capa de objetos `events`. Tipos (campo *Clase* del objeto): `spawn`, `door`, `sign`, `chest`, `blocker` y `auto`. Sus propiedades están documentadas en `hispazombie/scenes/map_scene.py`.
+* Capa de objetos `events`. Tipos (campo *Clase* del objeto): `spawn`, `door`, `sign`, `chest`, `blocker`, `auto` y `npc`. Sus propiedades están documentadas en `hispazombie/scenes/map_scene.py`.
+* Cualquier evento puede tener la propiedad `script` con el nombre de un script de `hispazombie/assets/events/` (sin `.json`). Los scripts son listas de comandos al estilo RPG Maker: texto, opciones, condiciones, interruptores, variables, objetos, fichas, mover personajes, teletransportar… Todos los comandos están documentados en `hispazombie/events/interpreter.py`. Ejemplo completo: `assets/events/cartuja_outskirts/scrapper.json` (Manolo el Chatarrero).
+* `show_if` / `hide_if`: el evento solo aparece si un interruptor está encendido / apagado.
 * Propiedades de tile: `solid` (no se atraviesa) y `bump_text` (texto al chocar).
 * En los textos, una línea en blanco separa páginas y `@intern` al principio de una página muestra el retrato del protagonista.
 * Los objetos que dan los cofres se definen en `hispazombie/assets/data/items.json`.
@@ -80,7 +84,7 @@ El pixel art se dibuja a **480×270** y se escala con un factor entero (×2, ×3
 
 ## Traducciones
 
-Los textos se escriben en español directamente en los mapas, en `items.json` y en el código con `tr("...")`. Para traducir a otro idioma:
+Los textos se escriben en español directamente en los mapas, en los scripts de eventos, en `items.json` y en el código con `tr("...")` (o `mark("...")` para textos que se muestran más tarde). Para traducir a otro idioma:
 
 ```bash
 uv run python tools/extract_texts.py      # crea/actualiza hispazombie/assets/i18n/en.json
@@ -94,14 +98,16 @@ Se rellenan las traducciones en ese archivo y se cambia `LANGUAGE` en `hispazomb
 hispazombie/        # Código del juego (esta carpeta es lo que empaqueta pygbag)
   main.py           # Punto de entrada (bucle async)
   config.py         # Resolución, tamaño de casilla, FPS, idioma
-  state.py          # Estado de la partida: interruptores, inventario
+  state.py          # Estado de la partida: interruptores, variables, inventario, fichas
+  saves.py          # Guardar y cargar
   items.py          # Catálogo de objetos
   i18n.py           # Traducción de textos
-  engine/           # Motor: bucle, pila de escenas, controles, recursos, texto
+  engine/           # Motor: bucle, escenas, controles, recursos, texto HD, almacenamiento
+  events/           # Intérprete de scripts de eventos
   world/            # Mapas de Tiled, cámara, movimiento en cuadrícula, personaje
-  scenes/           # Escenas del juego (exploración de mapas)
-  ui/               # Caja de mensajes
-  assets/           # Mapas, tilesets, sprites, retratos, fuentes, datos, traducciones
+  scenes/           # Título y exploración de mapas
+  ui/               # Mensajes, opciones, menú de pausa, inventario
+  assets/           # Mapas, eventos, tilesets, sprites, retratos, fuentes, datos, traducciones
 tools/              # Scripts: assets provisionales, mapas iniciales, extracción de textos
 tests/              # Tests con pytest
 ```

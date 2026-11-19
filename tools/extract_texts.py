@@ -4,7 +4,8 @@ Busca textos en:
   * Mapas (.tmj): nombre del mapa y propiedad "text" de los eventos.
   * Tilesets (.tsj): propiedad "bump_text" de los tiles.
   * assets/data/items.json: nombres y descripciones de los objetos.
-  * Código Python: llamadas tr("...") y show("...") con un texto literal.
+  * Scripts de eventos (assets/events/**/*.json): campos "text" y "label".
+  * Código Python: llamadas tr(), mark(), show() y show_text() con un texto literal.
 
 Para cada idioma crea o actualiza assets/i18n/<idioma>.json. Conserva las traducciones ya
 hechas, añade los textos nuevos con traducción vacía ("") y avisa de los que ya no se usan.
@@ -26,7 +27,7 @@ ASSETS = os.path.join(ROOT, "assets")
 I18N_DIR = os.path.join(ASSETS, "i18n")
 
 # Funciones del juego que traducen el texto que reciben.
-TRANSLATING_FUNCTIONS = {"tr", "show"}
+TRANSLATING_FUNCTIONS = {"tr", "mark", "show", "show_text"}
 
 
 def _props(data: dict) -> dict:
@@ -70,6 +71,26 @@ def texts_from_items() -> set[str]:
     return texts
 
 
+def texts_from_events() -> set[str]:
+    texts: set[str] = set()
+
+    def walk(node) -> None:
+        if isinstance(node, dict):
+            for key, value in node.items():
+                if key in ("text", "label") and isinstance(value, str) and value:
+                    texts.add(value)
+                else:
+                    walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+
+    for path in glob.glob(os.path.join(ASSETS, "events", "**", "*.json"), recursive=True):
+        with open(path, encoding="utf-8") as f:
+            walk(json.load(f))
+    return texts
+
+
 def texts_from_code() -> set[str]:
     """Textos literales pasados a tr() o a show() en el código del juego."""
     texts: set[str] = set()
@@ -94,7 +115,13 @@ def texts_from_code() -> set[str]:
 
 
 def all_texts() -> set[str]:
-    return texts_from_maps() | texts_from_tilesets() | texts_from_items() | texts_from_code()
+    return (
+        texts_from_maps()
+        | texts_from_tilesets()
+        | texts_from_items()
+        | texts_from_events()
+        | texts_from_code()
+    )
 
 
 def update_catalog(language: str, texts: set[str]) -> None:

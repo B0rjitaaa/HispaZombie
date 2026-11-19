@@ -437,6 +437,16 @@ def build_outskirts() -> None:
             "(Este camino se abrirá cuando el resto de Sevilla esté construida. "
             "Que con las obras de aquí ya se sabe...)",
         )
+    m.add_event(
+        "npc",
+        14,
+        11,
+        name="scrapper",
+        id="scrapper",
+        sprite="scrapper",
+        facing="down",
+        script="cartuja_outskirts/scrapper",
+    )
     m.save({"name": "Afueras de la Cartuja"})
 
 

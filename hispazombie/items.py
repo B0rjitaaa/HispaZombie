@@ -26,3 +26,9 @@ def name(item_id: str) -> str:
     """Nombre visible del objeto, traducido al idioma activo."""
     item = _load().get(item_id)
     return tr(item["name"]) if item else item_id
+
+
+def description(item_id: str) -> str:
+    """Descripción del objeto, traducida al idioma activo."""
+    item = _load().get(item_id)
+    return tr(item.get("description", "")) if item else ""

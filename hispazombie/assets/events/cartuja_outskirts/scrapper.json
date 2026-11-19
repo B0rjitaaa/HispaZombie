@@ -1,0 +1,88 @@
+[
+  {
+    "cmd": "if",
+    "cond": {"switch_off": "scrapper_met"},
+    "then": [
+      {"cmd": "text", "text": "@scrapper\n¡AY, LA VIRGEN! ¡Un zombi!\n\n@scrapper\n...Espera. Los zombis no llevan acreditación."},
+      {
+        "cmd": "choice",
+        "text": "@scrapper\n¿Tú eres un zombi o qué eres?",
+        "options": [
+          {
+            "label": "No, soy becario.",
+            "then": [
+              {"cmd": "text", "text": "@scrapper\nBecario... Eso es peor. Por lo menos los zombis no trabajan gratis."},
+              {"cmd": "add_variable", "id": "scrapper_trust", "amount": 1}
+            ]
+          },
+          {
+            "label": "Grrr...",
+            "then": [
+              {"cmd": "text", "text": "@scrapper\n¡Quieto ahí, que tengo una llave inglesa!\n\n@scrapper\n...Vale, vale, ya veo que es broma. Qué susto me has dado, miarma."}
+            ]
+          }
+        ],
+        "cancel": 1
+      },
+      {"cmd": "switch_on", "id": "scrapper_met"},
+      {"cmd": "text", "text": "@scrapper\nYo soy Manolo, chatarrero. Llevo por aquí desde que pegó el petardazo. ¿Y tú de dónde sales?\n\n@intern\nDel búnker de ahí abajo. Me eché una siesta.\n\n@scrapper\n¿Una siesta? ¡Hijo, que han pasado más de veinte años!\n\n@intern\n¿¡VEINTE AÑOS!?\n\n@intern\n...Los jefes me van a matar."},
+      {"cmd": "text", "text": "@scrapper\nAnda, toma unas fichas para empezar. Aquí el euro ya no vale nada: ahora se paga con cerámica."},
+      {"cmd": "give_coins", "amount": 5},
+      {"cmd": "text", "text": "@scrapper\nVoy a seguir con lo mío. Si necesitas algo, ya sabes dónde estoy."},
+      {"cmd": "move", "target": "this", "route": ["right", "right"]},
+      {"cmd": "face", "target": "this", "direction": "player"}
+    ],
+    "else": [
+      {
+        "cmd": "if",
+        "cond": {"all": [{"has_item": "pickman_delivery_note"}, {"switch_off": "scrapper_saw_note"}]},
+        "then": [
+          {"cmd": "text", "text": "@scrapper\n¿Qué llevas ahí? ¿Un albarán de Pickman? Eso era la fábrica de loza que había aquí, en el monasterio.\n\n@scrapper\n¿Una caja de la Base de Morón? ¿Pesando muchísimo?\n\n@scrapper\nLa loza no pesa tanto, hijo. Eso huele a militar que tira para atrás."},
+          {"cmd": "text", "text": "@scrapper\nToma, por la información. Hacía años que no me entretenía tanto."},
+          {"cmd": "switch_on", "id": "scrapper_saw_note"},
+          {"cmd": "give_coins", "amount": 3},
+          {"cmd": "end"}
+        ]
+      },
+      {
+        "cmd": "if",
+        "cond": {"variable": "scrapper_trust", "op": ">=", "value": 1},
+        "then": [{"cmd": "text", "text": "@scrapper\n¡Hombre, el becario! ¿Qué se te ofrece?"}],
+        "else": [{"cmd": "text", "text": "@scrapper\nAh, el de los gruñidos. ¿Qué quieres?"}]
+      },
+      {
+        "cmd": "choice",
+        "options": [
+          {
+            "label": "Comprar agua (3 fichas)",
+            "then": [
+              {
+                "cmd": "if",
+                "cond": {"coins_min": 3},
+                "then": [
+                  {"cmd": "remove_coins", "amount": 3},
+                  {"cmd": "text", "text": "@scrapper\nAgua de la buena. Filtrada con un calcetín, pero de la buena."},
+                  {"cmd": "give_item", "id": "water_bottle"}
+                ],
+                "else": [{"cmd": "text", "text": "@scrapper\nSin fichas no hay agua, miarma."}]
+              }
+            ]
+          },
+          {
+            "label": "¿Qué ha pasado aquí?",
+            "then": [
+              {"cmd": "text", "text": "@scrapper\nCada uno cuenta una cosa. Que si una bomba vieja, que si las obras del Metro...\n\n@scrapper\nYo solo sé que un día estaba comprando pipas y al siguiente no había ni kiosco ni Sevilla."}
+            ]
+          },
+          {
+            "label": "Nada, adiós.",
+            "then": [
+              {"cmd": "text", "text": "@scrapper\nVe con cuidado. Y no te acerques al cráter, que brilla."}
+            ]
+          }
+        ],
+        "cancel": 2
+      }
+    ]
+  }
+]

@@ -41,3 +41,12 @@ def tr(text: str) -> str:
     if not text or _language == SOURCE_LANGUAGE:
         return text
     return _catalog.get(text, text)
+
+
+def mark(text: str) -> str:
+    """Marca un texto para traducir sin traducirlo todavía (se traduce al mostrarlo).
+
+    Sirve para textos que se guardan en datos o scripts antes de mostrarse, para que
+    tools/extract_texts.py los encuentre.
+    """
+    return text

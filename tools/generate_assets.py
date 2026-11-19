@@ -493,9 +493,51 @@ def generate_portrait() -> None:
     pygame.image.save(s, os.path.join(folder, "intern.png"))
 
 
+# --- NPC: se generan recoloreando al protagonista y añadiendo algún detalle ---
+
+# Manolo el Chatarrero: chaleco reflectante naranja, pelo canoso, piel sin mutar.
+SCRAPPER_COLORS = {
+    SHIRT: (236, 120, 40),
+    HAIR: (170, 170, 168),
+    TROUSERS: (96, 76, 54),
+    MUTATED_SKIN: SKIN,
+    BADGE: (230, 230, 120),
+}
+
+
+def recolor(surface: pygame.Surface, mapping: dict) -> pygame.Surface:
+    result = surface.copy()
+    for y in range(result.get_height()):
+        for x in range(result.get_width()):
+            c = result.get_at((x, y))
+            new = mapping.get((c.r, c.g, c.b))
+            if new and c.a:
+                result.set_at((x, y), (*new, c.a))
+    return result
+
+
+def generate_scrapper() -> None:
+    sheet = pygame.image.load(os.path.join(ROOT, "sprites", "intern.png"))
+    sheet = recolor(sheet, SCRAPPER_COLORS)
+    # Franja reflectante del chaleco en los frames de frente y de espaldas.
+    for row in (0, 3):
+        for frame in range(3):
+            ox, oy = frame * CHAR_WIDTH, row * CHAR_HEIGHT
+            pygame.draw.line(sheet, (240, 240, 200), (ox + 4, oy + 14), (ox + 11, oy + 14))
+    pygame.image.save(sheet, os.path.join(ROOT, "sprites", "scrapper.png"))
+
+    portrait = pygame.image.load(os.path.join(ROOT, "portraits", "intern.png"))
+    portrait = recolor(portrait, SCRAPPER_COLORS)
+    pygame.draw.rect(portrait, (240, 240, 200), (8, 42, 32, 2))  # franja del chaleco
+    pygame.draw.rect(portrait, (150, 150, 148), (16, 31, 16, 5))  # bigote canoso
+    pygame.draw.rect(portrait, (20, 20, 24), (0, 0, 48, 48), 1)
+    pygame.image.save(portrait, os.path.join(ROOT, "portraits", "scrapper.png"))
+
+
 if __name__ == "__main__":
     pygame.init()
     generate_tileset()
     generate_protagonist()
     generate_portrait()
+    generate_scrapper()
     print("Assets generados en", os.path.normpath(ROOT))
