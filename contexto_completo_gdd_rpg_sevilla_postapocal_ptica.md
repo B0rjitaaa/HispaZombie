@@ -183,7 +183,8 @@ Macarena ───────── Nervión
 * **Encuentros mixtos:** combates **aleatorios** al caminar por zonas peligrosas (ceniza, ruinas, alcantarillas…) y enemigos **visibles en el mapa** para jefes y combates importantes. Las zonas seguras no tienen encuentros.
 * **Tipos o afinidades:** pocos tipos (4 o 5). Cada enemigo es débil o resistente a algunos.
 
-**Propuestas (pendientes de confirmar):**
+**Decisiones confirmadas (antes propuestas):**
+* **Combates uno contra uno:** cada combate es contra un solo enemigo.
 * **Tipos:** Físico, Radiación, Calor, Tóxico y Labia (ataques de palabra: insultos, regateo, burocracia).
 * **Ejemplos de habilidades mutantes:** *Cafeína radiactiva* (recupera energía), *Siesta curativa* (cura durmiendo un turno), *Piel de crisálida* (sube la defensa), *Brillo verde* (ataque de radiación).
 * **Ejemplos de técnicas callejeras:** *Chanclazo* (Físico), *Abanico de feria* (Calor), *Bocadillo de calamares* (cura), *Insulto con arte* (Labia, baja la defensa del enemigo).
@@ -225,7 +226,7 @@ Resumen de todo lo que queda por decidir. Las decisiones ya tomadas están en su
 * **Rehacer el mapa de pergamino** con las 11 zonas del grafo (sección 2.1), sin etiquetas en la imagen para poner los nombres desde el juego.
 
 ### Sistemas
-* **Combate** (sección 4.1): confirmar tipos, estadísticas, estados, enemigos y penalización por derrota; si hay combates contra varios enemigos a la vez; lista de habilidades y precios.
+* **Combate** (sección 4.1): lista completa de habilidades, a qué nivel se aprende cada una, precios de las técnicas callejeras y lista de enemigos por zona.
 * **Calor Radiactivo** (sección 4): cómo se adapta a un RPG por turnos (propuesta: estado alterado "Golpe de calor" y agua como objeto de supervivencia).
 * **Economía:** fichas de cerámica como dinero; papel de cartuchos y filtros.
 * **Asentamiento:** lista de servicios que se desbloquean y qué supervivientes los abren.
