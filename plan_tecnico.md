@@ -59,42 +59,37 @@
 ```
 hispazombie/
   main.py                  # Punto de entrada: bucle async (compatible con pygbag)
+  config.py                # Resolución, casilla, FPS, idioma
+  state.py                 # Interruptores, variables e inventario de la partida
+  items.py                 # Catálogo de objetos (assets/data/items.json)
+  i18n.py                  # Traducción de textos: tr("texto en español")
   engine/                  # Motor genérico, sin nada específico del juego
-    juego.py               # Bucle principal, reloj, pantalla virtual 320x240 y escalado
-    escenas.py             # Pila de escenas (push / pop / replace)
-    entrada.py             # Teclado y mando → acciones (aceptar, cancelar, arriba…)
-    recursos.py            # Carga y caché de imágenes, sonidos y fuentes
-    audio.py               # Música y efectos
-    guardado.py            # Guardar/cargar: archivo (escritorio) o localStorage (web)
-    texto.py               # Fuente pixel art y texto letra a letra
-  mundo/
-    mapa.py                # Carga de .tmj, capas, colisiones por tile
-    camara.py
-    entidad.py             # Jugador, NPC, objetos del mapa
-    movimiento.py          # Movimiento en cuadrícula y animación
-  eventos/
-    interprete.py          # Ejecuta listas de comandos (como los eventos de RPG Maker)
-    comandos.py            # texto, elegir, dar_objeto, teletransportar, combate…
-    estado.py              # Interruptores (switches) y variables del juego
-  combate/
-    escena_combate.py      # Combate por turnos 1 contra N, vista frontal
-    formulas.py            # Daño, acierto, huida
-    estados.py             # Estados alterados (radiación, golpe de calor, veneno…)
-    ia.py                  # Comportamiento de los enemigos
+    game.py                # Bucle principal, pantalla virtual y escalado entero
+    scenes.py              # Pila de escenas (push / pop / replace)
+    controls.py            # Teclado y mando -> acciones (confirm, cancel, up...)
+    resources.py           # Carga y caché de imágenes y fuentes
+    text.py                # Ajuste de líneas y páginas de diálogo
+    audio.py               # (Fase 4) Música y efectos
+    save.py                # (Fase 2) Guardar/cargar: archivo o localStorage
+  world/
+    tiled_map.py           # Carga de .tmj, capas, colisiones por tile
+    camera.py
+    movement.py            # Movimiento en cuadrícula
+    character.py           # Personaje con sprite animado
+  events/                  # (Fase 2) Intérprete de comandos de evento
+  battle/                  # (Fase 3) Combate por turnos 1 contra N
   ui/
-    caja_mensaje.py  menu.py  inventario.py  tienda.py
-  escenas/
-    titulo.py  mapa_zona.py  mapa_mundo.py  menu_pausa.py  combate.py
-  asentamiento/
-    ciudad.py              # Supervivientes reclutados y servicios desbloqueados
-  data/
-    objetos.json  enemigos.json  grupos_enemigos.json  habilidades.json
-    eventos/               # Un archivo JSON por evento o por mapa
-    textos/                # Diálogos (facilita corregir y, en el futuro, traducir)
+    message_box.py         # Caja de mensajes; (Fases 2-4) menús, inventario, tienda
+  scenes/
+    map_scene.py           # Exploración; (más adelante) título, mapa del mundo, combate
+  settlement/              # (Fase 6) Ciudad del Alamillo
   assets/
-    mapas/  tilesets/  sprites/  retratos/  musica/  sfx/  fuentes/  ui/
-  tests/
+    maps/  tilesets/  sprites/  portraits/  fonts/  data/  i18n/  music/  sfx/
+tests/
+tools/                     # Generadores de assets provisionales y extractor de textos
 ```
+
+**Idiomas del proyecto:** el código (identificadores, propiedades de Tiled, tipos de evento) va en inglés; los comentarios y la documentación, en español; los textos del juego, en español con catálogos de traducción en `assets/i18n/`.
 
 ### Principios
 
@@ -103,16 +98,16 @@ hispazombie/
 
 ```json
 [
-  {"cmd": "texto", "retrato": "chatarrero", "msg": "¿Agua fresquita, quillo? Solo 5 fichas."},
-  {"cmd": "elegir", "opciones": {
+  {"cmd": "text", "portrait": "scrapper", "text": "¿Agua fresquita, quillo? Solo 5 fichas."},
+  {"cmd": "choice", "options": {
     "Comprar": [
-      {"cmd": "si", "cond": {"fichas_min": 5},
-       "entonces": [{"cmd": "quitar_fichas", "n": 5}, {"cmd": "dar_objeto", "id": "agua"}],
-       "si_no": [{"cmd": "texto", "msg": "Sin fichas no hay agua, miarma."}]}
+      {"cmd": "if", "cond": {"coins_min": 5},
+       "then": [{"cmd": "remove_coins", "amount": 5}, {"cmd": "give_item", "id": "water_bottle"}],
+       "else": [{"cmd": "text", "text": "Sin fichas no hay agua, miarma."}]}
     ],
     "Pasar": []
   }},
-  {"cmd": "activar_interruptor", "id": "hablo_chatarrero"}
+  {"cmd": "switch_on", "id": "talked_to_scrapper"}
 ]
 ```
 

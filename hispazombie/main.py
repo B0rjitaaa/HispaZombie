@@ -6,14 +6,17 @@ Navegador:   uv run pygbag hispazombie   (y abrir http://localhost:8000)
 
 import asyncio
 
-from config import ALTO, ANCHO, FPS, TITULO
-from engine.juego import Juego
-from escenas.mapa_zona import EscenaMapa
+import i18n
+from config import FPS, HEIGHT, LANGUAGE, TITLE, WIDTH
+from engine import resources
+from engine.game import Game
+from scenes.map_scene import MapScene
 
 
 async def main() -> None:
-    juego = Juego(TITULO, ANCHO, ALTO, FPS)
-    await juego.ejecutar(EscenaMapa("bunker"))
+    i18n.set_language(LANGUAGE, resources.path("i18n"))
+    game = Game(TITLE, WIDTH, HEIGHT, FPS)
+    await game.run(MapScene("bunker"))
 
 
 # pygbag necesita que el juego arranque con asyncio.run(main()) al final de main.py.

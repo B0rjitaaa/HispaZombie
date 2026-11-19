@@ -17,12 +17,12 @@
    "id": 0,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "negro"
+     "value": "void"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -32,9 +32,9 @@
    "id": 1,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "suelo_hormigon"
+     "value": "concrete_floor"
     }
    ]
   },
@@ -42,9 +42,9 @@
    "id": 2,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "suelo_hormigon_manchado"
+     "value": "concrete_floor_stained"
     }
    ]
   },
@@ -52,12 +52,12 @@
    "id": 3,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "pared_hormigon"
+     "value": "concrete_wall"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -67,12 +67,12 @@
    "id": 4,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "pared_techo"
+     "value": "wall_top"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -82,12 +82,12 @@
    "id": 5,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "pared_poster"
+     "value": "wall_poster"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -97,12 +97,12 @@
    "id": 6,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "pared_panel"
+     "value": "wall_panel"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -112,9 +112,9 @@
    "id": 7,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "escaleras"
+     "value": "stairs"
     }
    ]
   },
@@ -122,9 +122,9 @@
    "id": 8,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "tierra"
+     "value": "dirt"
     }
    ]
   },
@@ -132,9 +132,9 @@
    "id": 9,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "tierra_grietas"
+     "value": "dirt_cracked"
     }
    ]
   },
@@ -142,9 +142,9 @@
    "id": 10,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "tierra_ceniza"
+     "value": "ash"
     }
    ]
   },
@@ -152,9 +152,9 @@
    "id": 11,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "hierba_seca"
+     "value": "dry_grass"
     }
    ]
   },
@@ -162,9 +162,9 @@
    "id": 12,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "asfalto"
+     "value": "asphalt"
     }
    ]
   },
@@ -172,9 +172,9 @@
    "id": 13,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "asfalto_linea"
+     "value": "asphalt_line"
     }
    ]
   },
@@ -182,12 +182,12 @@
    "id": 14,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "escombros"
+     "value": "rubble"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -197,12 +197,12 @@
    "id": 15,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "ruina_ladrillo"
+     "value": "ruin_brick"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -212,12 +212,12 @@
    "id": 16,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "ruina_ventana"
+     "value": "ruin_window"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -227,12 +227,12 @@
    "id": 17,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "ruina_techo"
+     "value": "ruin_roof"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -242,12 +242,12 @@
    "id": 18,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "valla_obra"
+     "value": "construction_fence"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -257,12 +257,12 @@
    "id": 19,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "cono_obra"
+     "value": "traffic_cone"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -272,12 +272,12 @@
    "id": 20,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "tuberia"
+     "value": "pipe"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -287,17 +287,17 @@
    "id": 21,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "cristal_radiactivo"
+     "value": "radioactive_glass"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     },
     {
-     "name": "texto_choque",
+     "name": "bump_text",
      "type": "string",
      "value": "Cristal radiactivo. Brilla bonito. Demasiado bonito."
     }
@@ -307,19 +307,19 @@
    "id": 22,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "borde_crater"
+     "value": "crater_edge"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     },
     {
-     "name": "texto_choque",
+     "name": "bump_text",
      "type": "string",
-     "value": "El borde del cráter. Abajo, todo es cristal verde y brillante.\n\n@becario\nNo. Ni de broma."
+     "value": "El borde del cráter. Abajo, todo es cristal verde y brillante.\n\n@intern\nNo. Ni de broma."
     }
    ]
   },
@@ -327,19 +327,19 @@
    "id": 23,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "charco_toxico"
+     "value": "toxic_puddle"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     },
     {
-     "name": "texto_choque",
+     "name": "bump_text",
      "type": "string",
-     "value": "Un charco verde que burbujea solo.\n\n@becario\nMejor rodearlo."
+     "value": "Un charco verde que burbujea solo.\n\n@intern\nMejor rodearlo."
     }
    ]
   },
@@ -347,12 +347,12 @@
    "id": 24,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "arbol_muerto"
+     "value": "dead_tree"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -362,17 +362,17 @@
    "id": 25,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "cofre_cerrado"
+     "value": "chest_closed"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     },
     {
-     "name": "abierto_id",
+     "name": "open_id",
      "type": "int",
      "value": 26
     }
@@ -382,12 +382,12 @@
    "id": 26,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "cofre_abierto"
+     "value": "chest_open"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -397,12 +397,12 @@
    "id": 27,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "cartel"
+     "value": "signpost"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -412,12 +412,12 @@
    "id": 28,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "senal_radiacion"
+     "value": "radiation_sign"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -427,12 +427,12 @@
    "id": 29,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "crisalida"
+     "value": "chrysalis"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -442,12 +442,12 @@
    "id": 30,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "bandeja_cafes"
+     "value": "coffee_tray"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -457,12 +457,12 @@
    "id": 31,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "excavadora_izq"
+     "value": "excavator_left"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -472,12 +472,12 @@
    "id": 32,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "excavadora_der"
+     "value": "excavator_right"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -487,9 +487,9 @@
    "id": 33,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "hueco_obra"
+     "value": "bunker_hole"
     }
    ]
   },
@@ -497,9 +497,9 @@
    "id": 34,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "cascote"
+     "value": "pebble"
     }
    ]
   },
@@ -507,12 +507,12 @@
    "id": 35,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "torre_cristal"
+     "value": "tower_glass"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -522,12 +522,12 @@
    "id": 36,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "torre_base"
+     "value": "tower_base"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }
@@ -537,12 +537,12 @@
    "id": 37,
    "properties": [
     {
-     "name": "nombre",
+     "name": "name",
      "type": "string",
-     "value": "casco_obra"
+     "value": "hard_hat"
     },
     {
-     "name": "solido",
+     "name": "solid",
      "type": "bool",
      "value": true
     }

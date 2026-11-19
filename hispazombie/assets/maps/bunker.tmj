@@ -13,7 +13,7 @@
  "nextobjectid": 9,
  "properties": [
   {
-   "name": "nombre",
+   "name": "name",
    "type": "string",
    "value": "Refugio antiaéreo número 7"
   }
@@ -27,7 +27,7 @@
  "layers": [
   {
    "id": 1,
-   "name": "suelo",
+   "name": "ground",
    "type": "tilelayer",
    "width": 20,
    "height": 15,
@@ -340,7 +340,7 @@
   },
   {
    "id": 2,
-   "name": "objetos",
+   "name": "objects",
    "type": "tilelayer",
    "width": 20,
    "height": 15,
@@ -653,7 +653,7 @@
   },
   {
    "id": 3,
-   "name": "eventos",
+   "name": "events",
    "type": "objectgroup",
    "draworder": "topdown",
    "x": 0,
@@ -664,7 +664,7 @@
     {
      "id": 1,
      "name": "",
-     "type": "inicio",
+     "type": "spawn",
      "x": 144,
      "y": 96,
      "width": 16,
@@ -673,9 +673,9 @@
      "visible": true,
      "properties": [
       {
-       "name": "direccion",
+       "name": "facing",
        "type": "string",
-       "value": "izquierda"
+       "value": "left"
       }
      ]
     },
@@ -693,19 +693,19 @@
       {
        "name": "id",
        "type": "string",
-       "value": "intro_despertar"
+       "value": "intro_wake_up"
       },
       {
-       "name": "texto",
+       "name": "text",
        "type": "string",
-       "value": "@becario\n...\n\n@becario\nUf... qué siesta más buena. ¿Qué hora es?\n\n@becario\n¡LOS CAFÉS! Los jefes me pidieron cuatro cafés hace... ¿cuánto?\n\n@becario\nMe tropecé con algo, me di en la cabeza y... Bueno. Seguro que ni se han dado cuenta.\n\n@becario\n...¿Por qué tengo la piel verde?"
+       "value": "@intern\n...\n\n@intern\nUf... qué siesta más buena. ¿Qué hora es?\n\n@intern\n¡LOS CAFÉS! Los jefes me pidieron cuatro cafés hace... ¿cuánto?\n\n@intern\nMe tropecé con algo, me di en la cabeza y... Bueno. Seguro que ni se han dado cuenta.\n\n@intern\n...¿Por qué tengo la piel verde?"
       }
      ]
     },
     {
      "id": 3,
      "name": "",
-     "type": "puerta",
+     "type": "door",
      "x": 144,
      "y": 32,
      "width": 16,
@@ -714,31 +714,31 @@
      "visible": true,
      "properties": [
       {
-       "name": "mapa",
+       "name": "map",
        "type": "string",
-       "value": "afueras_cartuja"
+       "value": "cartuja_outskirts"
       },
       {
-       "name": "destino_x",
+       "name": "target_x",
        "type": "int",
        "value": 6
       },
       {
-       "name": "destino_y",
+       "name": "target_y",
        "type": "int",
        "value": 22
       },
       {
-       "name": "direccion",
+       "name": "facing",
        "type": "string",
-       "value": "arriba"
+       "value": "up"
       }
      ]
     },
     {
      "id": 4,
      "name": "",
-     "type": "cartel",
+     "type": "sign",
      "x": 128,
      "y": 112,
      "width": 16,
@@ -747,9 +747,9 @@
      "visible": true,
      "properties": [
       {
-       "name": "texto",
+       "name": "text",
        "type": "string",
-       "value": "Los restos de una especie de capullo gigante, viscoso y con mi forma exacta.\n\n@becario\nVale. No pienso preguntar. No quiero saberlo."
+       "value": "Los restos de una especie de capullo gigante, viscoso y con mi forma exacta.\n\n@intern\nVale. No pienso preguntar. No quiero saberlo."
       }
      ],
      "gid": 30
@@ -757,7 +757,7 @@
     {
      "id": 5,
      "name": "",
-     "type": "cartel",
+     "type": "sign",
      "x": 96,
      "y": 160,
      "width": 16,
@@ -766,9 +766,9 @@
      "visible": true,
      "properties": [
       {
-       "name": "texto",
+       "name": "text",
        "type": "string",
-       "value": "La bandeja con los cuatro cafés de los jefes. Están fríos. Muy fríos.\n\nTienen una capa de polvo de varios centímetros.\n\n@becario\nCon un poco de suerte, no notarán la diferencia."
+       "value": "La bandeja con los cuatro cafés de los jefes. Están fríos. Muy fríos.\n\nTienen una capa de polvo de varios centímetros.\n\n@intern\nCon un poco de suerte, no notarán la diferencia."
       }
      ],
      "gid": 31
@@ -776,7 +776,7 @@
     {
      "id": 6,
      "name": "",
-     "type": "cartel",
+     "type": "sign",
      "x": 80,
      "y": 32,
      "width": 16,
@@ -785,7 +785,7 @@
      "visible": true,
      "properties": [
       {
-       "name": "texto",
+       "name": "text",
        "type": "string",
        "value": "Un cartel antiguo: \"REFUGIO ANTIAÉREO NÚMERO 7. AÑO 1937. Mantenga la calma y no corra por los pasillos.\""
       }
@@ -794,7 +794,7 @@
     {
      "id": 7,
      "name": "",
-     "type": "cartel",
+     "type": "sign",
      "x": 224,
      "y": 32,
      "width": 16,
@@ -803,16 +803,16 @@
      "visible": true,
      "properties": [
       {
-       "name": "texto",
+       "name": "text",
        "type": "string",
-       "value": "Otro cartel antiguo: \"En caso de bombardeo, permanezca en el refugio hasta nuevo aviso.\"\n\n@becario\nNadie ha venido a avisar. Mala señal."
+       "value": "Otro cartel antiguo: \"En caso de bombardeo, permanezca en el refugio hasta nuevo aviso.\"\n\n@intern\nNadie ha venido a avisar. Mala señal."
       }
      ]
     },
     {
      "id": 8,
      "name": "",
-     "type": "cartel",
+     "type": "sign",
      "x": 192,
      "y": 32,
      "width": 16,
@@ -821,9 +821,9 @@
      "visible": true,
      "properties": [
       {
-       "name": "texto",
+       "name": "text",
        "type": "string",
-       "value": "Un panel moderno atornillado a la pared vieja. Pegatina: \"Obras Línea 3 Metro de Sevilla. Sistema de cierre automático por detección de radiactividad.\"\n\nDebajo, en letra pequeña: \"Tiempo de cierre hermético: 30 segundos (aprox.)\".\n\n@becario\nAprox. Ya."
+       "value": "Un panel moderno atornillado a la pared vieja. Pegatina: \"Obras Línea 3 Metro de Sevilla. Sistema de cierre automático por detección de radiactividad.\"\n\nDebajo, en letra pequeña: \"Tiempo de cierre hermético: 30 segundos (aprox.)\".\n\n@intern\nAprox. Ya."
       }
      ]
     }
@@ -831,7 +831,7 @@
   },
   {
    "id": 4,
-   "name": "encima",
+   "name": "above",
    "type": "tilelayer",
    "width": 20,
    "height": 15,
