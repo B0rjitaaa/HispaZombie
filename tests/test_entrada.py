@@ -41,3 +41,11 @@ def test_soltar_todo():
     entrada.soltar_todo()
     assert entrada.direccion() is None
     assert not entrada.mantenidas
+
+
+def test_escala_entera_de_la_ventana():
+    from engine.juego import escala_entera
+
+    assert escala_entera(320, 240, (1920, 1080)) == 4
+    assert escala_entera(320, 240, (1440, 900)) == 3
+    assert escala_entera(320, 240, (200, 100)) == 1  # nunca menos de 1

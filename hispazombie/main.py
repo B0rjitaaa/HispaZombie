@@ -8,12 +8,12 @@ import asyncio
 
 from config import ALTO, ANCHO, FPS, TITULO
 from engine.juego import Juego
-from escenas.prueba import EscenaPrueba
+from escenas.mapa_zona import EscenaMapa
 
 
 async def main() -> None:
     juego = Juego(TITULO, ANCHO, ALTO, FPS)
-    await juego.ejecutar(EscenaPrueba())
+    await juego.ejecutar(EscenaMapa("bunker"))
 
 
 # pygbag necesita que el juego arranque con asyncio.run(main()) al final de main.py.

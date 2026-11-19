@@ -28,10 +28,27 @@ class MovimientoCuadricula:
         self.mirando = "abajo"
         self._destino: tuple[int, int] | None = None
         self._progreso = 0.0  # 0 -> 1 durante el paso entre casillas
+        self.pasos = 0  # pasos completados (sirve para alternar la animación)
 
     @property
     def moviendose(self) -> bool:
         return self._destino is not None
+
+    @property
+    def progreso(self) -> float:
+        return self._progreso
+
+    def colocar(self, x: int, y: int, mirando: str | None = None) -> None:
+        """Teletransporta a una casilla, cancelando el paso en curso."""
+        self.x, self.y = x, y
+        self._destino = None
+        self._progreso = 0.0
+        if mirando:
+            self.mirando = mirando
+
+    def casilla_delante(self) -> tuple[int, int]:
+        dx, dy = VECTORES[self.mirando]
+        return self.x + dx, self.y + dy
 
     def intentar_mover(self, direccion: str, es_transitable: Callable[[int, int], bool]) -> bool:
         """Empieza un paso si está quieto y la casilla destino es transitable.
@@ -49,14 +66,18 @@ class MovimientoCuadricula:
         self._progreso = 0.0
         return True
 
-    def actualizar(self, dt: float) -> None:
+    def actualizar(self, dt: float) -> bool:
+        """Avanza el paso en curso. Devuelve True en el frame en que llega a la casilla."""
         if self._destino is None:
-            return
+            return False
         self._progreso += self.velocidad * dt
         if self._progreso >= 1.0:
             self.x, self.y = self._destino
             self._destino = None
             self._progreso = 0.0
+            self.pasos += 1
+            return True
+        return False
 
     def posicion_visual(self) -> tuple[float, float]:
         """Posición en casillas (con decimales) para dibujar a mitad de paso."""

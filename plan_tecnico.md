@@ -20,10 +20,11 @@
 | Motor | **pygame-ce** | Fork activo de pygame |
 | Versión web | **pygbag** | Compila a WebAssembly. `pygbag carpeta/` prueba en `localhost:8000` |
 | Escritorio | **PyInstaller** | Hay que generar el ejecutable en cada sistema operativo |
-| Editor de mapas | **Tiled** | Mapas `.tmx`, con capas de tiles y una capa de objetos para los eventos |
-| Carga de mapas | **pytmx** | Lee los `.tmx` de Tiled en pygame |
+| Editor de mapas | **Tiled** | Mapas `.tmj` (Tiled JSON), con capas de tiles y una capa de objetos para los eventos |
+| Carga de mapas | Cargador propio (`mundo/mapa.py`) | Lee mapas Tiled JSON (`.tmj`) con la biblioteca estándar: sin dependencias y seguro en web |
 | Pixel art | **Aseprite** (de pago) o **Pixelorama** (gratis) | |
 | Assets provisionales | Packs CC0 de 16×16 (Kenney *Tiny Town*, *Tiny Dungeon*…) | Hasta tener arte propio |
+| Fuente | **Jersey 10** (Google Fonts) | Licencia SIL OFL |
 | Música | **BeepBox** o **FamiStudio** | Exportar a `.ogg` |
 | Efectos de sonido | **jsfxr** | Exportar a `.ogg` |
 | Datos del juego | **JSON** | Biblioteca estándar de Python: funciona seguro en web |
@@ -67,7 +68,7 @@ hispazombie/
     guardado.py            # Guardar/cargar: archivo (escritorio) o localStorage (web)
     texto.py               # Fuente pixel art y texto letra a letra
   mundo/
-    mapa.py                # Carga de .tmx, capas, colisiones por tile
+    mapa.py                # Carga de .tmj, capas, colisiones por tile
     camara.py
     entidad.py             # Jugador, NPC, objetos del mapa
     movimiento.py          # Movimiento en cuadrícula y animación
@@ -136,7 +137,7 @@ Las duraciones son orientativas para una persona a tiempo parcial.
 * Generar un ejecutable de escritorio con PyInstaller.
 * **Hito:** el proceso de publicación funciona en web y escritorio antes de crear contenido.
 
-### Fase 1: exploración, el búnker y las afueras de la Cartuja (3-4 semanas)
+### Fase 1: exploración, el búnker y las afueras de la Cartuja (3-4 semanas) ✅ completada (con gráficos provisionales)
 * Carga de mapas de Tiled, colisiones, cámara.
 * Movimiento en cuadrícula con animación en 4 direcciones.
 * Cambio de mapa por puertas (búnker → afueras).
