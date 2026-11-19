@@ -24,7 +24,7 @@
 | Carga de mapas | Cargador propio (`mundo/mapa.py`) | Lee mapas Tiled JSON (`.tmj`) con la biblioteca estándar: sin dependencias y seguro en web |
 | Pixel art | **Aseprite** (de pago) o **Pixelorama** (gratis) | |
 | Assets provisionales | Packs CC0 de 16×16 (Kenney *Tiny Town*, *Tiny Dungeon*…) | Hasta tener arte propio |
-| Fuente | **Jersey 10** (Google Fonts) | Licencia SIL OFL |
+| Fuente | **Atkinson Hyperlegible** (Google Fonts) | Licencia SIL OFL. Se dibuja en HD, por encima del pixel art |
 | Música | **BeepBox** o **FamiStudio** | Exportar a `.ogg` |
 | Efectos de sonido | **jsfxr** | Exportar a `.ogg` |
 | Datos del juego | **JSON** | Biblioteca estándar de Python: funciona seguro en web |
@@ -45,11 +45,11 @@
 
 ## 3. Especificación técnica "estilo RPG Maker 2000"
 
-* **Resolución interna:** 320×240 px, escalada ×3 (ventana de 960×720) sin suavizado.
-* **Tiles:** 16×16 px → la pantalla muestra 20×15 tiles.
+* **Resolución interna:** 480×270 px (16:9), escalada con un factor entero sin suavizado: ×2 = 960×540, ×3 = 1440×810, ×4 = 1920×1080.
+* **Tiles:** 16×16 px → la pantalla muestra 30×17 tiles.
 * **Sprites de personaje:** hojas de 3 frames × 4 direcciones (abajo, izquierda, derecha, arriba).
 * **Movimiento:** en cuadrícula, casilla a casilla, con interpolación suave entre casillas.
-* **Texto:** caja de mensajes con retrato, texto letra a letra, opciones de respuesta. Fuente pixel art.
+* **Texto:** caja de mensajes con retrato, texto letra a letra, opciones de respuesta. El texto se dibuja en alta resolución (no en pixel art) para que se lea bien.
 * **Controles:** flechas/WASD para mover, Z/Enter para aceptar, X/Esc para cancelar o abrir menú. Soporte de mando más adelante.
 
 ---
@@ -127,7 +127,7 @@ Las duraciones son orientativas para una persona a tiempo parcial.
 
 ### Fase 0: preparación y publicación (1 semana) ✅ completada
 * Repositorio git, entorno virtual, pygame-ce, ruff y pytest.
-* Ventana 320×240 escalada ×3 con bucle async.
+* Ventana escalada con bucle async.
 * Probar en el navegador con pygbag y subir una prueba privada a itch.io.
 * Generar un ejecutable de escritorio con PyInstaller.
 * **Hito:** el proceso de publicación funciona en web y escritorio antes de crear contenido.

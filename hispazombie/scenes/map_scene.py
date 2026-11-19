@@ -19,7 +19,7 @@ import pygame
 
 import items
 from config import HEIGHT, WIDTH
-from engine import resources
+from engine import hd_text, resources
 from engine.controls import CONFIRM, Controls
 from engine.scenes import Scene
 from i18n import tr
@@ -32,6 +32,7 @@ from world.tiled_map import ABOVE_LAYERS, MapEvent, TiledMap
 SOLID_KINDS = {"sign", "chest", "blocker"}
 FADE_SPEED = 700  # unidades de alfa por segundo
 MAP_NAME_DURATION = 2.5  # segundos que se ve el nombre del mapa al entrar
+MAP_NAME_SIZE = 11
 
 
 class MapScene(Scene):
@@ -62,7 +63,7 @@ class MapScene(Scene):
         self._pending_door: MapEvent | None = None
         self._last_bump: tuple[int, int] | None = None
         self.time = 0.0
-        self.font = resources.font(16)
+        self.name_font = hd_text.HDFont(MAP_NAME_SIZE, hd_text.UI_FONT_BOLD)
 
     # --- Preparación ---
 
@@ -252,10 +253,15 @@ class MapScene(Scene):
     def _draw_map_name(self, screen: pygame.Surface) -> None:
         if self.time > MAP_NAME_DURATION:
             return
-        label = self.font.render(tr(self.map.name), False, (245, 240, 225))
-        box = label.get_rect(topleft=(8, 8)).inflate(12, 6)
+        name = tr(self.map.name)
+        w, h = self.name_font.size(name)
+        box = pygame.Rect(8, 8, int(w) + 14, int(h) + 6)
         background = pygame.Surface(box.size, pygame.SRCALPHA)
         background.fill((20, 22, 40, 200))
         screen.blit(background, box.topleft)
         pygame.draw.rect(screen, (230, 220, 190), box, 1)
-        screen.blit(label, (box.x + 6, box.y + 3))
+        # El texto HD va por encima de todo: se atenúa a la vez que el fundido de entrada.
+        alpha = int(255 - self.fade)
+        hd_text.layer.draw(
+            name, box.x + 7, box.y + 3, MAP_NAME_SIZE, (245, 240, 225), alpha, hd_text.UI_FONT_BOLD
+        )

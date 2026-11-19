@@ -48,3 +48,4 @@ def test_window_integer_scale():
     assert integer_scale(320, 240, (1920, 1080)) == 4
     assert integer_scale(320, 240, (1440, 900)) == 3
     assert integer_scale(320, 240, (200, 100)) == 1  # nunca menos de 1
+    assert integer_scale(480, 270, (1632, 918)) == 3  # 1920x1080 al 85 %

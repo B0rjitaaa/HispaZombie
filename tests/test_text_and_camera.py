@@ -39,3 +39,22 @@ def test_camera_centers_small_maps():
     cam = Camera(320, 240)
     cam.follow(50, 50, 160, 120)
     assert (cam.x, cam.y) == (-80, -60)
+
+
+def test_hd_text_measures_in_virtual_pixels_and_renders():
+    import pygame
+
+    from engine import hd_text
+
+    pygame.init()
+    window = pygame.display.set_mode((960, 540))
+    font = hd_text.HDFont(12)
+    w, h = font.size("Hola")
+    assert 10 < w < 60 and 8 < h < 30  # medidas en píxeles virtuales, no de ventana
+
+    layer = hd_text.TextLayer()
+    layer.draw("Hola", 10, 10, 12)
+    layer.draw("invisible", 10, 30, 12, alpha=0)  # alfa 0: no se encola
+    assert len(layer._items) == 1
+    layer.render(window, (0, 0), 2)
+    assert not layer._items  # la cola se vacía tras dibujar

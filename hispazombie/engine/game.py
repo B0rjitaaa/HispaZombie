@@ -7,6 +7,7 @@ import sys
 
 import pygame
 
+from engine import hd_text
 from engine.controls import Controls
 from engine.scenes import Scene, SceneManager
 
@@ -43,7 +44,7 @@ class Game:
     def _create_window(self) -> pygame.Surface:
         if IN_BROWSER:
             # pygbag ajusta el canvas al tamaño de la página.
-            return pygame.display.set_mode((self.width * 3, self.height * 3))
+            return pygame.display.set_mode((self.width * 2, self.height * 2))
         if self.fullscreen:
             return pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         desktop = pygame.display.get_desktop_sizes()[0]
@@ -61,7 +62,8 @@ class Game:
         self.running = False
 
     def _present(self) -> None:
-        """Escala la pantalla virtual a la ventana, centrada y con bandas negras."""
+        """Escala la pantalla virtual a la ventana (centrada, con bandas negras) y dibuja
+        encima los textos HD a la resolución real."""
         window_size = self.window.get_size()
         scale = integer_scale(self.width, self.height, window_size)
         size = (self.width * scale, self.height * scale)
@@ -69,6 +71,7 @@ class Game:
         y = (window_size[1] - size[1]) // 2
         self.window.fill((0, 0, 0))
         self.window.blit(pygame.transform.scale(self.screen, size), (x, y))
+        hd_text.layer.render(self.window, (x, y), scale)
         pygame.display.flip()
 
     def _is_fullscreen_key(self, event: pygame.event.Event) -> bool:
@@ -101,6 +104,7 @@ class Game:
                 scene.update(dt, self.controls)
 
             self.screen.fill((0, 0, 0))
+            hd_text.layer.clear()
             for scene in self.scenes:
                 scene.draw(self.screen)
             self._present()

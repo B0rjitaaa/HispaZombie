@@ -7,18 +7,20 @@ from collections.abc import Callable
 import pygame
 
 from config import HEIGHT, WIDTH
-from engine import resources
+from engine import hd_text, resources
 from engine.controls import CANCEL, CONFIRM, Controls
 from engine.scenes import Scene
 from engine.text import Page, pages_from, wrap
 
-BOX_HEIGHT = 72
+# Medidas en píxeles virtuales. El texto se dibuja en HD (ver engine/hd_text.py).
+TEXT_SIZE = 12
+LINE_HEIGHT = 15
+LINES_PER_PAGE = 4
 MARGIN = 6
 PADDING = 8
+BOX_HEIGHT = 2 * PADDING + LINES_PER_PAGE * LINE_HEIGHT
 PORTRAIT_SIZE = 48
 LETTERS_PER_SECOND = 45
-LINES_PER_PAGE = 4
-LINE_HEIGHT = 13
 
 BACKGROUND_COLOR = (20, 22, 40, 230)
 BORDER_COLOR = (230, 220, 190)
@@ -32,7 +34,7 @@ class MessageScene(Scene):
     """
 
     def __init__(self, text: str, on_finish: Callable[[], None] | None = None) -> None:
-        self.font = resources.font(16)
+        self.font = hd_text.HDFont(TEXT_SIZE)
         self.on_finish = on_finish
         self.pages = self._paginate(pages_from(text))
         self.index = 0
@@ -101,13 +103,12 @@ class MessageScene(Scene):
             x += PORTRAIT_SIZE + PADDING
 
         remaining = int(self.letters)
-        y = box.y + PADDING - 2
+        y = box.y + PADDING - 1
         for line in lines:
             if remaining <= 0:
                 break
-            visible = line[:remaining]
+            hd_text.layer.draw(line[:remaining], x, y, TEXT_SIZE, TEXT_COLOR)
             remaining -= len(line)
-            screen.blit(self.font.render(visible, False, TEXT_COLOR), (x, y))
             y += LINE_HEIGHT
 
         # Flechita parpadeante cuando la página está completa.

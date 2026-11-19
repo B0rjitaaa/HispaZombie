@@ -18,9 +18,6 @@ else:
 
 ASSETS = os.path.join(ROOT, "assets")
 
-# Fuente del juego: Jersey 10 (licencia SIL OFL, ver assets/fonts/OFL-Jersey10.txt).
-GAME_FONT = "Jersey10-Regular.ttf"
-
 _images: dict[str, pygame.Surface] = {}
 _fonts: dict[tuple[str | None, int], pygame.font.Font] = {}
 
@@ -45,7 +42,8 @@ def optional_image(absolute_path: str) -> pygame.Surface | None:
     return image(absolute_path) if os.path.exists(absolute_path) else None
 
 
-def font(size: int = 16, filename: str | None = GAME_FONT) -> pygame.font.Font:
+def font(size: int, filename: str | None = None) -> pygame.font.Font:
+    """Fuente de assets/fonts/ (o la de pygame si filename es None), guardada en caché."""
     key = (filename, size)
     f = _fonts.get(key)
     if f is None:

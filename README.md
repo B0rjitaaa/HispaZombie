@@ -76,7 +76,7 @@ uv run python tools/generate_assets.py   # tileset, sprite y retrato
 uv run python tools/generate_maps.py     # mapas iniciales (¡sobrescribe los .tmj!)
 ```
 
-Fuente: [Jersey 10](https://fonts.google.com/specimen/Jersey+10), licencia SIL OFL (`hispazombie/assets/fonts/OFL-Jersey10.txt`).
+El pixel art se dibuja a **480×270** y se escala con un factor entero (×2, ×3, ×4…). Los textos se dibujan aparte, en alta resolución, con la fuente [Atkinson Hyperlegible](https://fonts.google.com/specimen/Atkinson+Hyperlegible) (licencia SIL OFL, `hispazombie/assets/fonts/OFL-AtkinsonHyperlegible.txt`). Ver `hispazombie/engine/hd_text.py`.
 
 ## Traducciones
 

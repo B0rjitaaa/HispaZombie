@@ -315,7 +315,7 @@ def hard_hat(s):
 
 
 PAINTERS = {
-    "void": lambda s: s.fill((8, 8, 10)),
+    "void": lambda s: s.fill((0, 0, 0)),
     "concrete_floor": concrete,
     "concrete_floor_stained": lambda s: concrete(s, True),
     "concrete_wall": wall,

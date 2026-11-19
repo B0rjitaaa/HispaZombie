@@ -2,11 +2,12 @@
 
 TITLE = "HispaZombie"
 
-# Resolución interna estilo RPG Maker 2000. Se escala a la ventana con un factor entero.
-WIDTH = 320
-HEIGHT = 240
+# Resolución interna del pixel art (16:9). Se escala a la ventana con un factor entero:
+# x2 = 960x540, x3 = 1440x810, x4 = 1920x1080. Los textos se dibujan aparte en HD.
+WIDTH = 480
+HEIGHT = 270
 
-# Tamaño de cada casilla del mapa, en píxeles. 320x240 -> 20x15 casillas en pantalla.
+# Tamaño de cada casilla del mapa, en píxeles. 480x270 -> 30x17 casillas en pantalla.
 TILE = 16
 
 FPS = 60
