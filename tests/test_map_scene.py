@@ -117,7 +117,8 @@ def test_scrapper_first_meeting_remembers_and_moves():
     # Manolo está en (14, 11) mirando abajo; nos ponemos debajo mirando arriba.
     manager, scene = setup_scene("cartuja_outskirts", 14, 12, "up")
     talk_to_scrapper(manager)
-    scrapper = next(iter(scene.actors.values()))
+    scrapper_event = next(e for e in scene.map.events if e.name == "scrapper")
+    scrapper = scene.actors[scrapper_event.id]
     assert scrapper.movement.facing == "down"  # se gira hacia el jugador
     close_messages(manager)
     choose(manager, 0)  # "No, soy becario."
@@ -162,7 +163,8 @@ def test_pause_menu_inventory_and_save():
     step(manager, CANCEL)
 
     step(manager, DOWN)
-    step(manager, CONFIRM)  # "Guardar"
+    step(manager, DOWN)
+    step(manager, CONFIRM)  # "Guardar" (tras "Objetos" y "Habilidades")
     assert isinstance(manager.current, MessageScene)
     assert saves.has_save()
     data = saves.storage().read(saves.SLOT)

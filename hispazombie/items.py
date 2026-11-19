@@ -32,3 +32,13 @@ def description(item_id: str) -> str:
     """Descripción del objeto, traducida al idioma activo."""
     item = _load().get(item_id)
     return tr(item.get("description", "")) if item else ""
+
+
+def use_effect(item_id: str) -> dict:
+    """Efecto al usar el objeto ({"heal": n}, {"caffeine": n}, {"cure": [...]}) o {}."""
+    item = _load().get(item_id)
+    return dict(item.get("use", {})) if item else {}
+
+
+def is_usable(item_id: str) -> bool:
+    return bool(use_effect(item_id))

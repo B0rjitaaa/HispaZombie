@@ -80,11 +80,14 @@ hispazombie/
   saves.py                 # Guardar y cargar la partida
   events/
     interpreter.py         # Intérprete de scripts de eventos (comandos y condiciones)
-  battle/                  # (Fase 3) Combate por turnos
+  battle/
+    data.py                # Habilidades, enemigos y encuentros (assets/data/*.json)
+    progress.py            # Niveles, experiencia, aprender y equipar habilidades
+    engine.py              # Motor por turnos: daño, tipos, estados, IA, recompensas
   ui/
     message_box.py  choice_box.py  pause_menu.py  widgets.py   # (Fase 4) tienda
   scenes/
-    map_scene.py  title_scene.py   # (más adelante) mapa del mundo, combate
+    map_scene.py  title_scene.py  battle_scene.py   # (Fase 4) mapa del mundo
   settlement/              # (Fase 6) Ciudad del Alamillo
   assets/
     maps/  events/  tilesets/  sprites/  portraits/  fonts/  data/  i18n/  music/  sfx/
@@ -149,7 +152,7 @@ Las duraciones son orientativas para una persona a tiempo parcial.
 * Guardar y cargar (archivo y localStorage).
 * **Hito:** NPC con diálogos ramificados que recuerdan lo que has hecho, y partida guardada.
 
-### Fase 3: combate (3-4 semanas)
+### Fase 3: combate (3-4 semanas) ✅ completada
 * Combate por turnos, vista frontal: Habilidades, Objetos, Huir (sección 4.1 del GDD).
 * Habilidades mutantes (por nivel, gastan Cafeína) y técnicas callejeras (compradas, usos limitados), 6 huecos equipables.
 * Tipos con debilidades y resistencias.

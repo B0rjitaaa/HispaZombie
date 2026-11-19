@@ -9,6 +9,8 @@ Tipos de evento de la capa "events" de Tiled (campo Clase del objeto):
   * auto     -> se ejecuta una sola vez al entrar al mapa. Props: id, text o script.
   * npc      -> personaje con sprite. Se habla con él con Aceptar.
                 Props: sprite (archivo de assets/sprites/ sin .png), facing, script o text.
+  * encounters -> zona rectangular de encuentros aleatorios.
+                Props: table (id de assets/data/encounters.json).
 
 Propiedades comunes opcionales:
   * script   -> script de eventos en assets/events/<script>.json (ver events/interpreter.py).
@@ -23,17 +25,20 @@ Los textos se escriben en español y se traducen con i18n.tr al mostrarlos.
 from __future__ import annotations
 
 import json
+import random
 from collections.abc import Callable
 
 import pygame
 
 import items
 import saves
+from battle import data as battle_data
+from battle import progress
 from config import HEIGHT, WIDTH
 from engine import hd_text, resources
 from engine.controls import CANCEL, CONFIRM, Controls
 from engine.scenes import Scene
-from events.interpreter import Choice, Interpreter, Script, Waiter
+from events.interpreter import BattleResult, Choice, Interpreter, Script, Waiter
 from i18n import mark, tr
 from state import GameState, game_state
 from ui.choice_box import ChoiceScene
@@ -90,6 +95,9 @@ class MapScene(Scene):
         self.fade = 255.0  # empieza en negro y aparece poco a poco
         self.fade_direction = -1
         self._teleport_target: tuple[str, int, int, str | None] | None = None
+        self.rng = random.Random()
+        self.steps_to_encounter = 0  # se calcula al entrar en una zona de encuentros
+        self.encounters_enabled = True
         self._last_bump: tuple[int, int] | None = None
         self.time = 0.0
         self.name_font = hd_text.HDFont(MAP_NAME_SIZE, hd_text.UI_FONT_BOLD)
@@ -218,7 +226,9 @@ class MapScene(Scene):
         return [{"cmd": "text", "text": text}] if text else []
 
     def run_event(self, event: MapEvent) -> None:
-        script = self.script_for(event)
+        self.run_script(self.script_for(event), event)
+
+    def run_script(self, script: Script, event: MapEvent | None = None) -> None:
         if not script:
             return
         self.running_event = event
@@ -285,6 +295,80 @@ class MapScene(Scene):
     def teleport(self, map_id: str, x: int, y: int, facing: str | None) -> None:
         self._teleport_target = (map_id, x, y, facing)
         self.fade_direction = 1
+
+    def start_battle(self, enemy_id: str, level: int, can_flee: bool) -> BattleResult:
+        from scenes.battle_scene import BattleScene  # import aquí para evitar un ciclo
+
+        result = BattleResult()
+
+        def ended(outcome: str) -> None:
+            result.outcome = outcome
+            if outcome == "lose":
+                self._defeat()
+
+        if self.manager:
+            self.manager.push(BattleScene(enemy_id, level, ended, can_flee))
+        return result
+
+    def skill_learned(self, skill_id: str, equipped: bool) -> Waiter:
+        text = tr("¡Aprendes {skill}!").format(skill=battle_data.skill_name(skill_id))
+        if not equipped:
+            text += "\n\n" + tr("No te quedan huecos: equípala desde el menú.")
+        return self._wait_for_message(text)
+
+    def rest(self) -> None:
+        progress.full_restore(self.state)
+        m = self.player.movement
+        self.state.respawn = [self.map_id, m.x, m.y, m.facing]
+
+    def _defeat(self) -> None:
+        """Al perder: menos fichas, vida al máximo y a despertar al último lugar seguro."""
+        lost = self.state.coins // 2
+        self.state.coins -= lost
+        progress.full_restore(self.state)
+        map_id, x, y, facing = self.state.respawn
+        text = tr("Todo se vuelve negro...") + "\n\n@intern\n" + tr("¿Otra siesta? Ya ves.")
+        if lost:
+            text += "\n\n" + tr("Has perdido {n} fichas.").format(n=lost)
+        self.interpreter = None  # el evento que lanzó el combate termina aquí
+        self.run_script(
+            [
+                {"cmd": "text", "text": text},
+                {"cmd": "teleport", "map": map_id, "x": x, "y": y, "facing": facing},
+            ]
+        )
+
+    # --- Encuentros aleatorios ---
+
+    def encounter_table_at(self, x: int, y: int) -> str | None:
+        for zone in self.map.events_of_kind("encounters"):
+            if self.is_visible(zone) and zone.contains(x, y):
+                return zone.props.get("table")
+        return None
+
+    def _reset_encounter_counter(self, table: dict) -> None:
+        steps = table.get("steps", 20)
+        self.steps_to_encounter = self.rng.randint(max(2, steps // 2), steps * 3 // 2)
+
+    def _check_encounter(self, x: int, y: int) -> bool:
+        """Cuenta un paso en zona peligrosa. Devuelve True si empieza un combate."""
+        table_id = self.encounter_table_at(x, y)
+        if not table_id or not self.encounters_enabled:
+            return False
+        table = battle_data.encounter_table(table_id)
+        if not table:
+            return False
+        if self.steps_to_encounter <= 0:
+            self._reset_encounter_counter(table)
+        self.steps_to_encounter -= 1
+        if self.steps_to_encounter > 0:
+            return False
+        self._reset_encounter_counter(table)
+        entries = table["enemies"]
+        entry = self.rng.choices(entries, weights=[e.get("weight", 1) for e in entries])[0]
+        level = self.rng.randint(*entry.get("level", [1, 1]))
+        self.run_script([{"cmd": "battle", "enemy": entry["enemy"], "level": level}])
+        return True
 
     # --- Movimiento de personajes por scripts ---
 
@@ -385,7 +469,7 @@ class MapScene(Scene):
             if event.kind == "door":
                 self.run_event(event)
                 return True
-        return False
+        return self._check_encounter(x, y)
 
     def _on_bump(self, x: int, y: int) -> None:
         for event in self.events_at(x, y):

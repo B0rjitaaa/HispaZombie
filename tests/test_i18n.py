@@ -30,4 +30,6 @@ def test_catalog_contains_every_game_text():
     assert "Está vacío." in catalog
     assert "Obtienes: {item}." in catalog
     assert "Partida guardada." in catalog
+    assert "Chanclazo" in catalog  # nombres de habilidades
+    assert "Rata del Metro" in catalog  # nombres de enemigos
     assert "No se ha podido guardar la partida." in catalog

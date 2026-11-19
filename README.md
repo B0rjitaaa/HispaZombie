@@ -69,6 +69,17 @@ Los mapas están en `hispazombie/assets/maps/` en formato **Tiled JSON (.tmj)** 
 * Capa de objetos `events`. Tipos (campo *Clase* del objeto): `spawn`, `door`, `sign`, `chest`, `blocker`, `auto` y `npc`. Sus propiedades están documentadas en `hispazombie/scenes/map_scene.py`.
 * Cualquier evento puede tener la propiedad `script` con el nombre de un script de `hispazombie/assets/events/` (sin `.json`). Los scripts son listas de comandos al estilo RPG Maker: texto, opciones, condiciones, interruptores, variables, objetos, fichas, mover personajes, teletransportar… Todos los comandos están documentados en `hispazombie/events/interpreter.py`. Ejemplo completo: `assets/events/cartuja_outskirts/scrapper.json` (Manolo el Chatarrero).
 * `show_if` / `hide_if`: el evento solo aparece si un interruptor está encendido / apagado.
+* `encounters`: zona rectangular de encuentros aleatorios (propiedad `table`).
+
+## Combate
+
+Los datos del combate están en `hispazombie/assets/data/` y se equilibran sin tocar código:
+
+* `skills.json`: habilidades. Familias: `innate` (gratis), `mutant` (se aprenden por nivel y gastan Cafeína), `street` (se compran con fichas, usos limitados) y `enemy`.
+* `enemies.json`: enemigos con estadísticas, debilidades, resistencias, recompensas y objetos que sueltan.
+* `encounters.json`: tablas de encuentros aleatorios por zona (enemigos, probabilidad y niveles).
+
+Tipos de daño: Físico, Radiación, Calor, Tóxico y Labia. Desde un script, `{"cmd": "battle", ...}` lanza un combate (ver `events/interpreter.py`). La lógica está en `hispazombie/battle/` y la pantalla en `scenes/battle_scene.py`.
 * Propiedades de tile: `solid` (no se atraviesa) y `bump_text` (texto al chocar).
 * En los textos, una línea en blanco separa páginas y `@intern` al principio de una página muestra el retrato del protagonista.
 * Los objetos que dan los cofres se definen en `hispazombie/assets/data/items.json`.
@@ -103,10 +114,11 @@ hispazombie/        # Código del juego (esta carpeta es lo que empaqueta pygbag
   items.py          # Catálogo de objetos
   i18n.py           # Traducción de textos
   engine/           # Motor: bucle, escenas, controles, recursos, texto HD, almacenamiento
+  battle/           # Combate: datos, progresión (niveles, habilidades) y motor por turnos
   events/           # Intérprete de scripts de eventos
   world/            # Mapas de Tiled, cámara, movimiento en cuadrícula, personaje
-  scenes/           # Título y exploración de mapas
-  ui/               # Mensajes, opciones, menú de pausa, inventario
+  scenes/           # Título, exploración de mapas y combate
+  ui/               # Mensajes, opciones, menú de pausa, inventario, habilidades
   assets/           # Mapas, eventos, tilesets, sprites, retratos, fuentes, datos, traducciones
 tools/              # Scripts: assets provisionales, mapas iniciales, extracción de textos
 tests/              # Tests con pytest

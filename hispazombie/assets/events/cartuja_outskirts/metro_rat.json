@@ -1,0 +1,31 @@
+[
+  {"cmd": "text", "text": "Una rata del tamaño de un perro, con casco de obra y chaleco reflectante, protege algo en la esquina.\n\n@intern\n¿Esa rata lleva casco? ¿Trabajaba en la obra?\n\nLa rata te mira como si le debieras horas extra."},
+  {
+    "cmd": "choice",
+    "text": "¿Te enfrentas a la Rata del Metro?",
+    "options": [
+      {
+        "label": "¡A por ella!",
+        "then": [
+          {
+            "cmd": "battle",
+            "enemy": "metro_rat",
+            "level": 4,
+            "can_flee": false,
+            "on_win": [
+              {"cmd": "switch_on", "id": "metro_rat_defeated"},
+              {"cmd": "text", "text": "La rata se quita el casco, lo deja en el suelo con respeto y se va por una alcantarilla.\n\n@intern\nPues sí que trabajaba en la obra. Y tenía más derechos laborales que yo."}
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Mejor otro día",
+        "then": [
+          {"cmd": "text", "text": "@intern\nCon esa mirada, mejor vuelvo cuando sepa algo más que dar manotazos."}
+        ]
+      }
+    ],
+    "cancel": 1
+  }
+]

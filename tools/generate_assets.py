@@ -534,10 +534,103 @@ def generate_scrapper() -> None:
     pygame.image.save(portrait, os.path.join(ROOT, "portraits", "scrapper.png"))
 
 
+# --- Enemigos: sprites de combate (64x64, de frente) y sprite de mapa para los visibles ---
+
+BATTLE_SIZE = 64
+
+
+def _eye(s, x, y, color=(230, 40, 40)):
+    pygame.draw.rect(s, (250, 250, 240), (x - 1, y - 1, 5, 5))
+    pygame.draw.rect(s, color, (x, y, 3, 3))
+
+
+def draw_parrot(s):
+    pygame.draw.ellipse(s, (40, 60, 30), (14, 54, 36, 8))  # sombra
+    pygame.draw.polygon(s, (70, 170, 60), [(32, 52), (20, 44), (24, 60), (32, 62)])  # cola
+    pygame.draw.ellipse(s, (90, 200, 70), (18, 18, 28, 36))  # cuerpo
+    pygame.draw.ellipse(s, (60, 160, 50), (12, 26, 12, 22))  # ala izq
+    pygame.draw.ellipse(s, (60, 160, 50), (40, 26, 12, 22))  # ala der
+    pygame.draw.circle(s, (100, 215, 80), (32, 16), 11)  # cabeza
+    pygame.draw.polygon(s, (240, 200, 60), [(29, 18), (35, 18), (32, 26)])  # pico
+    _eye(s, 25, 12)
+    _eye(s, 36, 12)
+    for x, y in ((22, 40), (40, 34), (30, 46)):  # manchas de mutación
+        pygame.draw.circle(s, (190, 255, 120), (x, y), 2)
+
+
+def draw_pigeon(s):
+    pygame.draw.circle(s, (120, 255, 140, 60), (32, 34), 30)  # aura radiactiva
+    pygame.draw.ellipse(s, (40, 40, 44), (14, 54, 36, 8))
+    pygame.draw.ellipse(s, (130, 130, 140), (16, 24, 32, 30))  # cuerpo
+    pygame.draw.ellipse(s, (100, 100, 112), (10, 30, 14, 18))
+    pygame.draw.ellipse(s, (100, 100, 112), (40, 30, 14, 18))
+    pygame.draw.ellipse(s, (90, 160, 130), (22, 20, 20, 12))  # cuello tornasolado
+    pygame.draw.circle(s, (150, 150, 160), (32, 16), 9)
+    pygame.draw.polygon(s, (60, 60, 60), [(30, 18), (34, 18), (32, 23)])
+    _eye(s, 26, 13, (255, 140, 20))
+    _eye(s, 35, 13, (255, 140, 20))
+    for x in (26, 36):
+        pygame.draw.line(s, (220, 120, 120), (x, 54), (x, 58), 2)
+
+
+def draw_rat(s, metro=False):
+    body = (90, 70, 60) if metro else (130, 96, 70)
+    dark = (60, 46, 40) if metro else (100, 72, 54)
+    w = 6 if metro else 0
+    pygame.draw.ellipse(s, (40, 30, 26), (8 - w, 52, 48 + 2 * w, 10))
+    pygame.draw.lines(s, (220, 150, 150), False, [(46, 50), (56, 46), (60, 36), (58, 28)], 3)
+    pygame.draw.ellipse(s, body, (12 - w, 26 - w, 40 + 2 * w, 30 + w))  # cuerpo
+    pygame.draw.circle(s, dark, (18, 18), 7)  # orejas
+    pygame.draw.circle(s, dark, (46, 18), 7)
+    pygame.draw.circle(s, (220, 150, 150), (18, 18), 4)
+    pygame.draw.circle(s, (220, 150, 150), (46, 18), 4)
+    pygame.draw.ellipse(s, body, (18, 14, 28, 24))  # cabeza
+    pygame.draw.ellipse(s, (220, 150, 150), (28, 32, 8, 5))  # hocico
+    pygame.draw.rect(s, (250, 250, 230), (29, 37, 3, 4))  # dientes
+    pygame.draw.rect(s, (250, 250, 230), (33, 37, 3, 4))
+    _eye(s, 24, 22)
+    _eye(s, 37, 22)
+    if metro:
+        pygame.draw.ellipse(s, (240, 200, 40), (16, 4, 32, 16))  # casco de obra
+        pygame.draw.rect(s, (240, 200, 40), (12, 14, 40, 4))
+        pygame.draw.line(s, (200, 160, 30), (32, 4), (32, 16), 2)
+        pygame.draw.rect(s, (236, 120, 40), (16, 44, 32, 6))  # chaleco
+        pygame.draw.line(s, (240, 240, 200), (16, 47), (47, 47))
+
+
+ENEMY_PAINTERS = {
+    "mutant_parrot": draw_parrot,
+    "radioactive_pigeon": draw_pigeon,
+    "giant_rat": draw_rat,
+    "metro_rat": lambda s: draw_rat(s, metro=True),
+}
+
+
+def generate_enemies() -> None:
+    folder = os.path.join(ROOT, "battlers")
+    os.makedirs(folder, exist_ok=True)
+    for enemy_id, painter in ENEMY_PAINTERS.items():
+        s = pygame.Surface((BATTLE_SIZE, BATTLE_SIZE), pygame.SRCALPHA)
+        painter(s)
+        pygame.image.save(s, os.path.join(folder, f"{enemy_id}.png"))
+
+    # Sprite de mapa de la Rata del Metro (enemigo visible): 3 frames x 4 direcciones.
+    sheet = pygame.Surface((CHAR_WIDTH * 3, CHAR_HEIGHT * 4), pygame.SRCALPHA)
+    small = pygame.Surface((BATTLE_SIZE, BATTLE_SIZE), pygame.SRCALPHA)
+    draw_rat(small, metro=True)
+    small = pygame.transform.scale(small, (16, 16))
+    for row in range(4):
+        for frame in range(3):
+            bob = 1 if frame == 1 else 0
+            sheet.blit(small, (frame * CHAR_WIDTH, row * CHAR_HEIGHT + 8 - bob))
+    pygame.image.save(sheet, os.path.join(ROOT, "sprites", "metro_rat.png"))
+
+
 if __name__ == "__main__":
     pygame.init()
     generate_tileset()
     generate_protagonist()
     generate_portrait()
     generate_scrapper()
+    generate_enemies()
     print("Assets generados en", os.path.normpath(ROOT))

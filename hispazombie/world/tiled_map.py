@@ -61,6 +61,11 @@ class MapEvent:
     y: int
     gid: int  # 0 si no tiene gráfico
     props: dict[str, Any]
+    width: int = 1  # tamaño en casillas (para zonas rectangulares)
+    height: int = 1
+
+    def contains(self, x: int, y: int) -> bool:
+        return self.x <= x < self.x + self.width and self.y <= y < self.y + self.height
 
 
 @dataclass
@@ -138,6 +143,8 @@ class TiledMap:
             y=int(round(y / self.tile)),
             gid=gid,
             props=_properties(obj),
+            width=max(1, int(round(obj.get("width", self.tile) / self.tile))),
+            height=max(1, int(round(obj.get("height", self.tile) / self.tile))),
         )
 
     # --- Consultas ---

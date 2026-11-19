@@ -10,7 +10,7 @@
  "tilewidth": 16,
  "tileheight": 16,
  "nextlayerid": 5,
- "nextobjectid": 15,
+ "nextobjectid": 19,
  "properties": [
   {
    "name": "name",
@@ -2753,6 +2753,109 @@
     },
     {
      "id": 14,
+     "name": "",
+     "type": "encounters",
+     "x": 16,
+     "y": 16,
+     "width": 608,
+     "height": 192,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "table",
+       "type": "string",
+       "value": "cartuja_outskirts"
+      }
+     ]
+    },
+    {
+     "id": 15,
+     "name": "",
+     "type": "encounters",
+     "x": 304,
+     "y": 240,
+     "width": 320,
+     "height": 224,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "table",
+       "type": "string",
+       "value": "cartuja_outskirts"
+      }
+     ]
+    },
+    {
+     "id": 16,
+     "name": "metro_rat",
+     "type": "npc",
+     "x": 192,
+     "y": 400,
+     "width": 16,
+     "height": 16,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "id",
+       "type": "string",
+       "value": "metro_rat"
+      },
+      {
+       "name": "sprite",
+       "type": "string",
+       "value": "metro_rat"
+      },
+      {
+       "name": "facing",
+       "type": "string",
+       "value": "left"
+      },
+      {
+       "name": "script",
+       "type": "string",
+       "value": "cartuja_outskirts/metro_rat"
+      },
+      {
+       "name": "hide_if",
+       "type": "string",
+       "value": "metro_rat_defeated"
+      }
+     ]
+    },
+    {
+     "id": 17,
+     "name": "",
+     "type": "chest",
+     "x": 208,
+     "y": 416,
+     "width": 16,
+     "height": 16,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "id",
+       "type": "string",
+       "value": "chest_metro_rat"
+      },
+      {
+       "name": "item",
+       "type": "string",
+       "value": "antidote_herbs"
+      },
+      {
+       "name": "text",
+       "type": "string",
+       "value": "Dentro hay una bolsita de manzanilla y una nota: \"Para el estómago, Paco. Que comes fatal.\" Firmado: tu madre."
+      }
+     ],
+     "gid": 26
+    },
+    {
+     "id": 18,
      "name": "scrapper",
      "type": "npc",
      "x": 224,

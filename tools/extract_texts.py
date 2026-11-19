@@ -3,7 +3,7 @@
 Busca textos en:
   * Mapas (.tmj): nombre del mapa y propiedad "text" de los eventos.
   * Tilesets (.tsj): propiedad "bump_text" de los tiles.
-  * assets/data/items.json: nombres y descripciones de los objetos.
+  * assets/data/*.json: nombres y descripciones (objetos, habilidades, enemigos...).
   * Scripts de eventos (assets/events/**/*.json): campos "text" y "label".
   * Código Python: llamadas tr(), mark(), show() y show_text() con un texto literal.
 
@@ -62,12 +62,18 @@ def texts_from_tilesets() -> set[str]:
     return texts
 
 
-def texts_from_items() -> set[str]:
-    with open(os.path.join(ASSETS, "data", "items.json"), encoding="utf-8") as f:
-        data = json.load(f)
+def texts_from_data() -> set[str]:
     texts: set[str] = set()
-    for item in data.values():
-        texts.update(v for k, v in item.items() if k in ("name", "description") and v)
+    for path in glob.glob(os.path.join(ASSETS, "data", "*.json")):
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+        for entry in data.values():
+            if isinstance(entry, dict):
+                texts.update(
+                    v
+                    for k, v in entry.items()
+                    if k in ("name", "description") and isinstance(v, str) and v
+                )
     return texts
 
 
@@ -118,7 +124,7 @@ def all_texts() -> set[str]:
     return (
         texts_from_maps()
         | texts_from_tilesets()
-        | texts_from_items()
+        | texts_from_data()
         | texts_from_events()
         | texts_from_code()
     )

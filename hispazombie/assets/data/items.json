@@ -9,6 +9,17 @@
   },
   "water_bottle": {
     "name": "Botella de agua",
-    "description": "Precintada. Caducó hace 20 años, pero el agua no caduca... ¿no?"
+    "description": "Precintada. Caducó hace 20 años, pero el agua no caduca... ¿no? Recupera 20 de vida.",
+    "use": {"heal": 20}
+  },
+  "vending_coffee": {
+    "name": "Café de máquina",
+    "description": "Un café de máquina de oficina, todavía templado. Nadie sabe cómo. Recupera 10 de cafeína.",
+    "use": {"caffeine": 10}
+  },
+  "antidote_herbs": {
+    "name": "Manzanilla",
+    "description": "Una infusión de manzanilla. Cura el veneno y la radiación, según tu abuela.",
+    "use": {"cure": ["poison", "radiation"]}
   }
 }

@@ -1,0 +1,129 @@
+{
+  "mutant_parrot": {
+    "name": "Cotorra mutante",
+    "sprite": "mutant_parrot",
+    "stats": {
+      "hp": 18,
+      "attack": 5,
+      "defense": 3,
+      "mutation": 4,
+      "speed": 8
+    },
+    "weak": [
+      "heat"
+    ],
+    "resist": [
+      "wit"
+    ],
+    "skills": [
+      "peck",
+      "screech"
+    ],
+    "xp": 6,
+    "coins": [
+      1,
+      2
+    ],
+    "drops": [
+      {
+        "item": "vending_coffee",
+        "chance": 0.15
+      }
+    ]
+  },
+  "radioactive_pigeon": {
+    "name": "Paloma radiactiva",
+    "sprite": "radioactive_pigeon",
+    "stats": {
+      "hp": 16,
+      "attack": 4,
+      "defense": 4,
+      "mutation": 6,
+      "speed": 6
+    },
+    "weak": [
+      "physical"
+    ],
+    "resist": [
+      "radiation"
+    ],
+    "skills": [
+      "wing_flap",
+      "radioactive_dropping"
+    ],
+    "xp": 5,
+    "coins": [
+      1,
+      2
+    ],
+    "drops": []
+  },
+  "giant_rat": {
+    "name": "Rata gigante",
+    "sprite": "giant_rat",
+    "stats": {
+      "hp": 24,
+      "attack": 6,
+      "defense": 4,
+      "mutation": 4,
+      "speed": 5
+    },
+    "weak": [
+      "heat"
+    ],
+    "resist": [
+      "toxic"
+    ],
+    "skills": [
+      "bite",
+      "toxic_bite"
+    ],
+    "xp": 8,
+    "coins": [
+      2,
+      3
+    ],
+    "drops": [
+      {
+        "item": "water_bottle",
+        "chance": 0.2
+      }
+    ]
+  },
+  "metro_rat": {
+    "name": "Rata del Metro",
+    "sprite": "metro_rat",
+    "boss": true,
+    "stats": {
+      "hp": 48,
+      "attack": 7,
+      "defense": 5,
+      "mutation": 6,
+      "speed": 6
+    },
+    "weak": [
+      "heat",
+      "wit"
+    ],
+    "resist": [
+      "toxic",
+      "physical"
+    ],
+    "skills": [
+      "bite",
+      "toxic_bite",
+      "tail_whip"
+    ],
+    "xp": 30,
+    "coins": [
+      8,
+      8
+    ],
+    "drops": [
+      {
+        "item": "vending_coffee",
+        "chance": 1.0
+      }
+    ]
+  }
+}

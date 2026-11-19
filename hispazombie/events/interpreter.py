@@ -27,6 +27,14 @@ Comandos disponibles (los textos se escriben en español y se traducen al mostra
                                                         "player" (mirar al jugador).
   {"cmd": "wait", "seconds": 0.5}
   {"cmd": "teleport", "map": "...", "x": 1, "y": 2, "facing": "down"}  Termina el evento.
+  {"cmd": "battle", "enemy": "metro_rat", "level": 4, "can_flee": false,
+   "on_win": [...], "on_flee": [...]}                  Combate. Si se pierde, el protagonista
+                                                        despierta en el último lugar seguro y
+                                                        el evento termina.
+  {"cmd": "learn_skill", "id": "flip_flop"}            Aprende una habilidad (con mensaje).
+  {"cmd": "rest"}                                       Descanso: vida, cafeína y usos al
+                                                        máximo; este sitio pasa a ser el lugar
+                                                        seguro donde despertar si pierdes.
   {"cmd": "end"}                                        Termina el evento.
 
 Condiciones de "if" (se pueden combinar con "all" y "any"):
@@ -35,6 +43,7 @@ Condiciones de "if" (se pueden combinar con "all" y "any"):
   {"variable": "id", "op": ">=", "value": 3}     op: == != < <= > >=
   {"has_item": "id", "amount": 1}
   {"coins_min": 5}
+  {"knows_skill": "id"}
   {"all": [cond, cond]}  /  {"any": [cond, cond]}  /  {"not": cond}
 """
 
@@ -78,6 +87,12 @@ class EventContext(Protocol):
 
     def teleport(self, map_id: str, x: int, y: int, facing: str | None) -> None: ...
 
+    def start_battle(self, enemy_id: str, level: int, can_flee: bool) -> BattleResult: ...
+
+    def skill_learned(self, skill_id: str, equipped: bool) -> Waiter: ...
+
+    def rest(self) -> None: ...
+
 
 class Choice:
     """Resultado de una elección: `index` se rellena cuando el jugador elige."""
@@ -87,6 +102,16 @@ class Choice:
 
     def done(self) -> bool:
         return self.index is not None
+
+
+class BattleResult:
+    """Resultado de un combate: `outcome` se rellena al terminar ("win", "lose", "fled")."""
+
+    def __init__(self) -> None:
+        self.outcome: str | None = None
+
+    def done(self) -> bool:
+        return self.outcome is not None
 
 
 class ScriptError(Exception):
@@ -112,6 +137,8 @@ def check(cond: dict[str, Any], state: GameState) -> bool:
         return state.item_count(cond["has_item"]) >= cond.get("amount", 1)
     if "coins_min" in cond:
         return state.coins >= cond["coins_min"]
+    if "knows_skill" in cond:
+        return cond["knows_skill"] in state.learned_skills
     raise ScriptError(f"Condición desconocida: {cond}")
 
 
@@ -225,6 +252,27 @@ class Interpreter:
     def _cmd_teleport(self, c):
         self.context.teleport(c["map"], c["x"], c["y"], c.get("facing"))
         raise _EndEvent
+
+    def _cmd_battle(self, c):
+        result = self.context.start_battle(c["enemy"], c.get("level", 1), c.get("can_flee", True))
+        yield result.done
+        if result.outcome == "win":
+            yield from self._run_list(c.get("on_win", []))
+        elif result.outcome == "fled":
+            yield from self._run_list(c.get("on_flee", []))
+        else:  # derrota: el contexto se encarga de despertar al protagonista
+            raise _EndEvent
+
+    def _cmd_learn_skill(self, c):
+        from battle import progress  # import aquí: el intérprete no depende del combate
+
+        state = self.context.state
+        if progress.learn_skill(state, c["id"]):
+            yield self.context.skill_learned(c["id"], c["id"] in state.equipped_skills)
+
+    def _cmd_rest(self, c):
+        self.context.rest()
+        yield from ()
 
     def _cmd_end(self, c):
         raise _EndEvent

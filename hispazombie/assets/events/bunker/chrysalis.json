@@ -1,0 +1,23 @@
+[
+  {"cmd": "text", "text": "Los restos de una especie de capullo gigante, viscoso y con mi forma exacta.\n\n@intern\nVale. No pienso preguntar. No quiero saberlo."},
+  {
+    "cmd": "choice",
+    "text": "@intern\nAunque... la verdad es que se ve cómodo. ¿Me echo otra siesta?",
+    "options": [
+      {
+        "label": "Una cabezadita",
+        "then": [
+          {"cmd": "rest"},
+          {"cmd": "text", "text": "Te acurrucas dentro de los restos de la crisálida. Huele raro, pero se está calentito.\n\nRecuperas toda la vida, la cafeína y los usos de tus técnicas.\n\n@intern\nSi pierdo un combate, seguro que vuelvo a despertarme aquí. Como siempre."}
+        ]
+      },
+      {
+        "label": "Ni hablar",
+        "then": [
+          {"cmd": "text", "text": "@intern\nCon veinte años de siesta ya he cubierto el cupo."}
+        ]
+      }
+    ],
+    "cancel": 1
+  }
+]

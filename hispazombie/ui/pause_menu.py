@@ -7,6 +7,7 @@ from collections.abc import Callable
 import pygame
 
 import items
+from battle import progress
 from config import HEIGHT, WIDTH
 from engine import hd_text
 from engine.controls import CANCEL, Controls
@@ -23,6 +24,7 @@ from ui.widgets import (
     TEXT_COLOR,
     TEXT_SIZE,
     MenuList,
+    dim_screen,
     draw_panel,
 )
 
@@ -40,6 +42,7 @@ class PauseMenuScene(Scene):
         self.on_quit_to_title = on_quit_to_title
         self.options = [
             (tr("Objetos"), self._open_inventory),
+            (tr("Habilidades"), self._open_skills),
             (tr("Guardar"), self._save),
             (tr("Volver al título"), self._ask_quit),
             (tr("Cerrar"), self._close),
@@ -60,6 +63,12 @@ class PauseMenuScene(Scene):
     def _open_inventory(self) -> None:
         if self.manager:
             self.manager.push(InventoryScene())
+
+    def _open_skills(self) -> None:
+        from ui.skills_menu import SkillsScene
+
+        if self.manager:
+            self.manager.push(SkillsScene())
 
     def _save(self) -> None:
         if self.on_save():
@@ -85,18 +94,41 @@ class PauseMenuScene(Scene):
             )
 
     def draw(self, screen: pygame.Surface) -> None:
-        width = max(self.menu.width(), 120)
+        width = max(self.menu.width(), 150)
         menu_rect = pygame.Rect(WIDTH - MARGIN - width, MARGIN, width, self.menu.height())
         draw_panel(screen, menu_rect)
         self.menu.draw(screen, menu_rect.x, menu_rect.y, menu_rect.width)
 
-        info = pygame.Rect(menu_rect.x, menu_rect.bottom + 4, width, 2 * LINE_HEIGHT + 2 * PADDING)
+        s = game_state
+        lines = [
+            (tr("Nivel {n}").format(n=s.level), ACCENT_COLOR),
+            (
+                tr("Vida: {a}/{b}").format(a=progress.current_hp(s), b=progress.max_hp(s)),
+                TEXT_COLOR,
+            ),
+            (
+                tr("Cafeína: {a}/{b}").format(
+                    a=progress.current_caffeine(s), b=progress.max_caffeine(s)
+                ),
+                TEXT_COLOR,
+            ),
+            (tr("Exp. para subir: {n}").format(n=self._xp_to_next()), TEXT_COLOR),
+            (tr("Fichas: {n}").format(n=s.coins), ACCENT_COLOR),
+            (tr("Tiempo: {t}").format(t=format_play_time(s.play_time)), TEXT_COLOR),
+        ]
+        info = pygame.Rect(
+            menu_rect.x, menu_rect.bottom + 4, width, len(lines) * LINE_HEIGHT + 2 * PADDING
+        )
         draw_panel(screen, info)
         x, y = info.x + PADDING, info.y + PADDING - 1
-        coins = tr("Fichas: {n}").format(n=game_state.coins)
-        time = tr("Tiempo: {t}").format(t=format_play_time(game_state.play_time))
-        hd_text.layer.draw(coins, x, y, TEXT_SIZE, ACCENT_COLOR)
-        hd_text.layer.draw(time, x, y + LINE_HEIGHT, TEXT_SIZE, TEXT_COLOR)
+        for i, (text, color) in enumerate(lines):
+            hd_text.layer.draw(text, x, y + i * LINE_HEIGHT, TEXT_SIZE, color)
+
+    @staticmethod
+    def _xp_to_next() -> int | str:
+        if game_state.level >= progress.MAX_LEVEL:
+            return "-"
+        return progress.xp_for_level(game_state.level + 1) - game_state.xp
 
 
 class InventoryScene(Scene):
@@ -120,8 +152,36 @@ class InventoryScene(Scene):
         if result == MenuList.CANCELLED or (not self.item_ids and CANCEL in controls.pressed):
             if self.manager:
                 self.manager.pop()
+        elif result is not None and self.item_ids:
+            self._use(self.item_ids[result])
+
+    def _use(self, item_id: str) -> None:
+        """Usa un objeto fuera del combate (solo los que curan vida o cafeína)."""
+        use = items.use_effect(item_id)
+        s = game_state
+        messages = []
+        if "heal" in use and progress.current_hp(s) < progress.max_hp(s):
+            gained = min(use["heal"], progress.max_hp(s) - progress.current_hp(s))
+            s.hp = progress.current_hp(s) + gained
+            messages.append(tr("Recuperas {n} de vida.").format(n=gained))
+        if "caffeine" in use and progress.current_caffeine(s) < progress.max_caffeine(s):
+            gained = min(use["caffeine"], progress.max_caffeine(s) - progress.current_caffeine(s))
+            s.caffeine = progress.current_caffeine(s) + gained
+            messages.append(tr("Recuperas {n} de cafeína.").format(n=gained))
+        if messages:
+            s.remove_item(item_id)
+            text = tr("Usas {item}.").format(item=items.name(item_id)) + " " + " ".join(messages)
+        elif use:
+            text = tr("Ahora mismo no te hace falta.")
+        else:
+            text = tr("Eso no se puede usar.")
+        manager = self.manager
+        if manager:
+            manager.replace(InventoryScene())  # refresca la lista
+            manager.push(MessageScene(text))
 
     def draw(self, screen: pygame.Surface) -> None:
+        dim_screen(screen)
         desc_height = 3 * LINE_HEIGHT + 2 * PADDING
         list_rect = pygame.Rect(
             MARGIN, MARGIN, WIDTH - 2 * MARGIN, HEIGHT - 3 * MARGIN - desc_height

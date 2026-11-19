@@ -52,15 +52,17 @@ class MapBuilder:
             for i in range(x, x + w):
                 self.set_object(i, j, tile)
 
-    def add_event(self, kind: str, x: int, y: int, tile: str | None = None, **props) -> None:
+    def add_event(
+        self, kind: str, x: int, y: int, tile: str | None = None, w: int = 1, h: int = 1, **props
+    ) -> None:
         ev = {
             "id": len(self.events) + 1,
             "name": props.pop("name", ""),
             "type": kind,
             "x": x * T,
             "y": (y + 1) * T if tile else y * T,  # Tiled ancla los objetos-tile por abajo
-            "width": T,
-            "height": T,
+            "width": w * T,
+            "height": h * T,
             "rotation": 0,
             "visible": True,
             "properties": [],
@@ -188,8 +190,7 @@ def build_bunker() -> None:
         8,
         6,
         "chrysalis",
-        text="Los restos de una especie de capullo gigante, viscoso y con mi forma exacta.\n\n"
-        "@intern\nVale. No pienso preguntar. No quiero saberlo.",
+        script="bunker/chrysalis",
     )
     m.add_event(
         "sign",
@@ -437,6 +438,32 @@ def build_outskirts() -> None:
             "(Este camino se abrirá cuando el resto de Sevilla esté construida. "
             "Que con las obras de aquí ya se sabe...)",
         )
+    # Zonas de encuentros aleatorios. La obra y las carreteras son zonas seguras.
+    m.add_event("encounters", 1, 1, w=38, h=12, table="cartuja_outskirts")
+    m.add_event("encounters", 19, 15, w=20, h=14, table="cartuja_outskirts")
+
+    # La Rata del Metro: jefe opcional que guarda un cofre en la esquina de la obra.
+    m.add_event(
+        "npc",
+        12,
+        25,
+        name="metro_rat",
+        id="metro_rat",
+        sprite="metro_rat",
+        facing="left",
+        script="cartuja_outskirts/metro_rat",
+        hide_if="metro_rat_defeated",
+    )
+    m.add_event(
+        "chest",
+        13,
+        25,
+        "chest_closed",
+        id="chest_metro_rat",
+        item="antidote_herbs",
+        text="Dentro hay una bolsita de manzanilla y una nota: "
+        '"Para el estómago, Paco. Que comes fatal." Firmado: tu madre.',
+    )
     m.add_event(
         "npc",
         14,

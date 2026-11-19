@@ -1,0 +1,163 @@
+{
+  "slap": {
+    "name": "Manotazo",
+    "description": "Un manotazo sin técnica ninguna. No cansa, pero tampoco impresiona.",
+    "family": "innate",
+    "type": "physical",
+    "power": 8,
+    "accuracy": 95
+  },
+  "green_glow": {
+    "name": "Brillo verde",
+    "description": "Tu piel mutada brilla y suelta un chispazo radiactivo.",
+    "family": "mutant",
+    "learn_level": 1,
+    "type": "radiation",
+    "power": 14,
+    "accuracy": 95,
+    "caffeine": 4
+  },
+  "healing_nap": {
+    "name": "Siesta curativa",
+    "description": "Te echas una cabezadita en pleno combate. Recupera mucha vida, pero te quedas dormido un turno.",
+    "family": "mutant",
+    "learn_level": 3,
+    "type": "physical",
+    "power": 0,
+    "caffeine": 6,
+    "effect": {"heal": 0.5, "self_status": "nap", "self_status_turns": 1}
+  },
+  "chrysalis_skin": {
+    "name": "Piel de crisálida",
+    "description": "Te endureces como cuando estabas dentro del capullo. Sube mucho la defensa.",
+    "family": "mutant",
+    "learn_level": 5,
+    "type": "physical",
+    "power": 0,
+    "caffeine": 5,
+    "effect": {"self_stage": {"defense": 2}}
+  },
+  "radioactive_caffeine": {
+    "name": "Cafeína radiactiva",
+    "description": "Conviertes un poco de tu vida en cafeína pura. No preguntes cómo.",
+    "family": "mutant",
+    "learn_level": 7,
+    "type": "radiation",
+    "power": 0,
+    "caffeine": 0,
+    "effect": {"hp_cost": 0.15, "restore_caffeine": 12}
+  },
+  "green_burst": {
+    "name": "Estallido verde",
+    "description": "Una explosión de radiación concentrada. Puede irradiar al enemigo.",
+    "family": "mutant",
+    "learn_level": 9,
+    "type": "radiation",
+    "power": 26,
+    "accuracy": 90,
+    "caffeine": 10,
+    "effect": {"status": "radiation", "chance": 0.3}
+  },
+  "flip_flop": {
+    "name": "Chanclazo",
+    "description": "La técnica ancestral de las madres andaluzas. Golpe físico fuerte.",
+    "family": "street",
+    "type": "physical",
+    "power": 18,
+    "accuracy": 95,
+    "uses": 10,
+    "price": 5
+  },
+  "fair_fan": {
+    "name": "Abanico de feria",
+    "description": "Abanicas con tanta fuerza que el aire sale ardiendo. Puede dar un golpe de calor.",
+    "family": "street",
+    "type": "heat",
+    "power": 16,
+    "accuracy": 95,
+    "uses": 8,
+    "price": 8,
+    "effect": {"status": "heat", "chance": 0.25}
+  },
+  "squid_sandwich": {
+    "name": "Bocadillo de calamares",
+    "description": "Te zampas un bocadillo de calamares de origen dudoso. Recupera vida.",
+    "family": "street",
+    "type": "physical",
+    "power": 0,
+    "uses": 5,
+    "price": 10,
+    "effect": {"heal": 0.35}
+  },
+  "artful_insult": {
+    "name": "Insulto con arte",
+    "description": "Un insulto tan bien elaborado que el enemigo se viene abajo. Baja su defensa.",
+    "family": "street",
+    "type": "wit",
+    "power": 6,
+    "accuracy": 100,
+    "uses": 10,
+    "price": 6,
+    "effect": {"target_stage": {"defense": -1}}
+  },
+  "peck": {
+    "name": "Picotazo",
+    "description": "Un picotazo rápido.",
+    "family": "enemy",
+    "type": "physical",
+    "power": 9,
+    "accuracy": 95
+  },
+  "screech": {
+    "name": "Chillido",
+    "description": "Un chillido insoportable que te baja la moral y la defensa.",
+    "family": "enemy",
+    "type": "wit",
+    "power": 0,
+    "accuracy": 90,
+    "effect": {"target_stage": {"defense": -1}}
+  },
+  "wing_flap": {
+    "name": "Aleteo",
+    "description": "Un golpe de alas.",
+    "family": "enemy",
+    "type": "physical",
+    "power": 7,
+    "accuracy": 95
+  },
+  "radioactive_dropping": {
+    "name": "Caca radiactiva",
+    "description": "Mejor no describirlo. Puede irradiarte.",
+    "family": "enemy",
+    "type": "radiation",
+    "power": 8,
+    "accuracy": 85,
+    "effect": {"status": "radiation", "chance": 0.3}
+  },
+  "bite": {
+    "name": "Mordisco",
+    "description": "Un mordisco con dientes de rata.",
+    "family": "enemy",
+    "type": "physical",
+    "power": 10,
+    "accuracy": 95
+  },
+  "toxic_bite": {
+    "name": "Mordisco tóxico",
+    "description": "Un mordisco que puede envenenar.",
+    "family": "enemy",
+    "type": "toxic",
+    "power": 7,
+    "accuracy": 90,
+    "effect": {"status": "poison", "chance": 0.35}
+  },
+  "tail_whip": {
+    "name": "Coletazo",
+    "description": "Un coletazo que puede dejarte aturdido.",
+    "family": "enemy",
+    "type": "physical",
+    "power": 12,
+    "accuracy": 85,
+    "effect": {"status": "stun", "chance": 0.2}
+  }
+}

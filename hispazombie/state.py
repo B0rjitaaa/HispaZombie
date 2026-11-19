@@ -7,7 +7,10 @@ from __future__ import annotations
 
 from typing import Any
 
-SAVE_VERSION = 1
+SAVE_VERSION = 2
+
+STARTING_SKILLS = ["slap", "green_glow"]
+DEFAULT_RESPAWN = ["bunker", 9, 6, "left"]
 
 
 class GameState:
@@ -24,6 +27,16 @@ class GameState:
         self.player_y: int | None = None
         self.player_facing = "down"
         self.play_time = 0.0  # segundos jugados
+        # Progresión del protagonista (ver battle/progress.py).
+        self.level = 1
+        self.xp = 0
+        self.hp: int | None = None  # None = al máximo
+        self.caffeine: int | None = None
+        self.learned_skills: list[str] = list(STARTING_SKILLS)
+        self.equipped_skills: list[str] = list(STARTING_SKILLS)
+        self.skill_uses: dict[str, int] = {}  # usos restantes de técnicas callejeras
+        # Dónde despierta el protagonista si pierde un combate: [mapa, x, y, facing].
+        self.respawn: list = list(DEFAULT_RESPAWN)
 
     def reset(self) -> None:
         self.__init__()
@@ -90,11 +103,20 @@ class GameState:
             "player_y": self.player_y,
             "player_facing": self.player_facing,
             "play_time": self.play_time,
+            "level": self.level,
+            "xp": self.xp,
+            "hp": self.hp,
+            "caffeine": self.caffeine,
+            "learned_skills": list(self.learned_skills),
+            "equipped_skills": list(self.equipped_skills),
+            "skill_uses": dict(self.skill_uses),
+            "respawn": list(self.respawn),
         }
 
     def load_dict(self, data: dict[str, Any]) -> None:
-        if data.get("version") != SAVE_VERSION:
-            raise ValueError(f"Versión de partida guardada no soportada: {data.get('version')}")
+        version = data.get("version")
+        if version not in (1, SAVE_VERSION):
+            raise ValueError(f"Versión de partida guardada no soportada: {version}")
         self.reset()
         self.switches = set(data["switches"])
         self.variables = dict(data["variables"])
@@ -106,6 +128,16 @@ class GameState:
         self.player_y = data["player_y"]
         self.player_facing = data["player_facing"]
         self.play_time = data.get("play_time", 0.0)
+        # Las partidas de la versión 1 no tienen progresión: se quedan los valores iniciales.
+        if version >= 2:
+            self.level = data["level"]
+            self.xp = data["xp"]
+            self.hp = data["hp"]
+            self.caffeine = data["caffeine"]
+            self.learned_skills = list(data["learned_skills"])
+            self.equipped_skills = list(data["equipped_skills"])
+            self.skill_uses = dict(data["skill_uses"])
+            self.respawn = list(data["respawn"])
 
 
 game_state = GameState()

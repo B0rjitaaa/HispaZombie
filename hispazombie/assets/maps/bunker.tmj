@@ -747,9 +747,9 @@
      "visible": true,
      "properties": [
       {
-       "name": "text",
+       "name": "script",
        "type": "string",
-       "value": "Los restos de una especie de capullo gigante, viscoso y con mi forma exacta.\n\n@intern\nVale. No pienso preguntar. No quiero saberlo."
+       "value": "bunker/chrysalis"
       }
      ],
      "gid": 30
