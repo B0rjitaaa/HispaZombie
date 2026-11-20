@@ -238,7 +238,9 @@ Los scripts de eventos admiten estos comandos: `text`, `choice`, `if`, `switch_o
 
 ### 6.4. Grafo en formato de datos
 
-Este JSON es **[PROPUESTO]** como formato para la futura pantalla de viaje. Recoge las conexiones decididas y los bloqueos con los interruptores propuestos. `requires: null` significa que no hay bloqueo decidido; `requires: "PENDIENTE"`, que el bloqueo está por decidir.
+**Fuente de verdad en el código:** `hispazombie/assets/data/world_map.json`. Contiene las zonas con su rectángulo y su centro en porcentaje del lienzo, los puntos de interés y las conexiones con su punto medio, tipo (camino o puente) e interruptor requerido. Un test (`tests/test_world_map.py`) comprueba que coincide con el grafo del GDD. Con `uv run python tools/generate_world_map.py` se genera un mapa esquemático provisional (`hispazombie/assets/world/world_map_base.svg` y `.png`).
+
+El JSON de debajo es el resumen del grafo. Es **[PROPUESTO]** como formato para la futura pantalla de viaje. Recoge las conexiones decididas y los bloqueos con los interruptores propuestos. `requires: null` significa que no hay bloqueo decidido; `requires: "PENDIENTE"`, que el bloqueo está por decidir.
 
 ```json
 {

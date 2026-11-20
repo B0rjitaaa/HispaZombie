@@ -63,17 +63,23 @@ def texts_from_tilesets() -> set[str]:
 
 
 def texts_from_data() -> set[str]:
+    """Campos "name" y "description" a cualquier profundidad de assets/data/*.json."""
     texts: set[str] = set()
+
+    def walk(node) -> None:
+        if isinstance(node, dict):
+            for key, value in node.items():
+                if key in ("name", "description") and isinstance(value, str) and value:
+                    texts.add(value)
+                else:
+                    walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+
     for path in glob.glob(os.path.join(ASSETS, "data", "*.json")):
         with open(path, encoding="utf-8") as f:
-            data = json.load(f)
-        for entry in data.values():
-            if isinstance(entry, dict):
-                texts.update(
-                    v
-                    for k, v in entry.items()
-                    if k in ("name", "description") and isinstance(v, str) and v
-                )
+            walk(json.load(f))
     return texts
 
 

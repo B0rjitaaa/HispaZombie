@@ -1,0 +1,57 @@
+{
+  "_comment": "Mapa del mundo: zonas, puntos de interés y conexiones (GDD sección 2.1). Coordenadas en porcentaje del lienzo (0-100; x hacia la derecha, y hacia abajo). 'requires' es el interruptor que abre la conexión: null = abierta; 'PENDING' = bloqueo sin decidir. Los interruptores son propuestas (ver mapa_y_lugares.md).",
+  "river": [[38, 0], [36, 12], [40, 22], [39, 34], [42, 46], [41, 58], [44, 70], [43, 82], [46, 100]],
+  "zones": {
+    "alamillo_park":   {"name": "Parque del Alamillo",          "box": [10, 4, 34, 22],  "center": [22, 13], "maps": []},
+    "cartuja":         {"name": "Cartuja",                      "box": [8, 25, 35, 47],  "center": [20, 30], "maps": ["bunker", "cartuja_outskirts"]},
+    "triana":          {"name": "Triana",                       "box": [6, 50, 34, 69],  "center": [20, 59], "maps": []},
+    "los_remedios":    {"name": "Los Remedios",                 "box": [10, 72, 38, 92], "center": [24, 82], "maps": []},
+    "river":           {"name": "Río / Torre del Oro / Arenal", "box": [44, 44, 55, 72], "center": [50, 66], "maps": []},
+    "old_town":        {"name": "Casco Antiguo",                "box": [56, 26, 73, 58], "center": [62, 41], "maps": []},
+    "macarena":        {"name": "Macarena",                     "box": [55, 5, 76, 23],  "center": [65, 9],  "maps": []},
+    "noble_zone":      {"name": "Zona Noble",                   "box": [79, 5, 95, 23],  "center": [87, 9],  "maps": []},
+    "nervion":         {"name": "Nervión",                      "box": [77, 30, 96, 54], "center": [86, 34], "maps": []},
+    "plaza_de_espana": {"name": "Plaza de España",              "box": [58, 62, 80, 80], "center": [69, 64], "maps": []},
+    "heliopolis":      {"name": "Heliópolis",                   "box": [62, 83, 92, 97], "center": [70, 86], "maps": []}
+  },
+  "expansion_zones": {
+    "los_pueblos":     {"name": "Los Pueblos",                  "box": [0, 38, 5, 62],   "center": [3, 50],  "maps": []}
+  },
+  "points_of_interest": {
+    "crater":         {"zone": "cartuja",         "at": [25, 35]},
+    "torre_pelli":    {"zone": "cartuja",         "at": [13, 40]},
+    "bunker":         {"zone": "cartuja",         "at": [30, 43]},
+    "settlement":     {"zone": "alamillo_park",   "at": [22, 16]},
+    "triana_tunnels": {"zone": "triana",          "at": [20, 63]},
+    "torre_del_oro":  {"zone": "river",           "at": [48, 57]},
+    "giralda":        {"zone": "old_town",        "at": [68, 43]},
+    "setas":          {"zone": "old_town",        "at": [61, 32]},
+    "alcazar":        {"zone": "old_town",        "at": [65, 52]},
+    "macarena_walls": {"zone": "macarena",        "at": [65, 16]},
+    "station":        {"zone": "noble_zone",      "at": [87, 16]},
+    "stadium_nervion":    {"zone": "nervion",     "at": [87, 44]},
+    "plaza_semicircle":   {"zone": "plaza_de_espana", "at": [69, 73]},
+    "stadium_heliopolis": {"zone": "heliopolis",  "at": [80, 91]}
+  },
+  "connections": [
+    {"id": "c01", "a": "cartuja",         "b": "alamillo_park",   "midpoint": [22, 23], "kind": "road",   "requires": "alamillo_decontaminated"},
+    {"id": "c02", "a": "cartuja",         "b": "river",           "midpoint": [40, 48], "kind": "bridge", "requires": null},
+    {"id": "c03", "a": "cartuja",         "b": "macarena",        "midpoint": [44, 20], "kind": "bridge", "requires": "PENDING"},
+    {"id": "c04", "a": "triana",          "b": "river",           "midpoint": [38, 60], "kind": "bridge", "requires": null},
+    {"id": "c05", "a": "triana",          "b": "los_remedios",    "midpoint": [21, 71], "kind": "road",   "requires": null},
+    {"id": "c06", "a": "triana",          "b": "heliopolis",      "midpoint": [44, 76], "kind": "bridge", "requires": "torre_del_oro_boss_defeated"},
+    {"id": "c07", "a": "los_remedios",    "b": "heliopolis",      "midpoint": [45, 91], "kind": "bridge", "requires": "torre_del_oro_boss_defeated"},
+    {"id": "c08", "a": "river",           "b": "old_town",        "midpoint": [56, 52], "kind": "road",   "requires": "torre_del_oro_boss_defeated"},
+    {"id": "c09", "a": "river",           "b": "plaza_de_espana", "midpoint": [56, 70], "kind": "road",   "requires": "torre_del_oro_boss_defeated"},
+    {"id": "c10", "a": "plaza_de_espana", "b": "heliopolis",      "midpoint": [72, 81], "kind": "road",   "requires": null},
+    {"id": "c11", "a": "plaza_de_espana", "b": "nervion",         "midpoint": [80, 62], "kind": "road",   "requires": null},
+    {"id": "c12", "a": "old_town",        "b": "macarena",        "midpoint": [64, 25], "kind": "road",   "requires": null},
+    {"id": "c13", "a": "old_town",        "b": "nervion",         "midpoint": [75, 43], "kind": "road",   "requires": null},
+    {"id": "c14", "a": "macarena",        "b": "nervion",         "midpoint": [78, 27], "kind": "road",   "requires": null},
+    {"id": "c15", "a": "macarena",        "b": "noble_zone",      "midpoint": [77, 14], "kind": "road",   "requires": "PENDING"}
+  ],
+  "expansion_connections": [
+    {"id": "x01", "a": "los_pueblos", "b": "cartuja", "midpoint": [6, 41], "kind": "road", "requires": "PENDING"},
+    {"id": "x02", "a": "los_pueblos", "b": "triana",  "midpoint": [5, 57], "kind": "road", "requires": "PENDING"}
+  ]
+}

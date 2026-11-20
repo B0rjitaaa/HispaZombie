@@ -33,3 +33,7 @@ select = ["E", "F", "W", "I", "B", "UP"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["battle", "config", "engine", "events", "i18n", "items", "saves", "scenes", "state", "ui", "world"]
+
+[tool.ruff.lint.per-file-ignores]
+# Cadenas de marcado SVG: partirlas las haría más difíciles de leer.
+"tools/generate_world_map.py" = ["E501"]
