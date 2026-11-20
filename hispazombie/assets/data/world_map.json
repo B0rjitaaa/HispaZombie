@@ -6,7 +6,7 @@
     "cartuja":         {"name": "Cartuja",                      "box": [8, 25, 35, 47],  "center": [20, 30], "maps": ["bunker", "cartuja_outskirts"]},
     "triana":          {"name": "Triana",                       "box": [6, 50, 34, 69],  "center": [20, 59], "maps": []},
     "los_remedios":    {"name": "Los Remedios",                 "box": [10, 72, 38, 92], "center": [24, 82], "maps": []},
-    "river":           {"name": "Río / Torre del Oro / Arenal", "box": [44, 44, 55, 72], "center": [50, 66], "maps": []},
+    "river":           {"name": "Río / Torre del Oro / Arenal", "box": [44, 44, 55, 72], "center": [48, 76], "maps": []},
     "old_town":        {"name": "Casco Antiguo",                "box": [56, 26, 73, 58], "center": [62, 41], "maps": []},
     "macarena":        {"name": "Macarena",                     "box": [55, 5, 76, 23],  "center": [65, 9],  "maps": []},
     "noble_zone":      {"name": "Zona Noble",                   "box": [79, 5, 95, 23],  "center": [87, 9],  "maps": []},

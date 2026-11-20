@@ -408,7 +408,7 @@ def build_svg(data: dict) -> str:
 
     parts.append(compass(150, H - 150))
     parts.append(
-        f'<text x="{W / 2}" y="{H - 60}" font-family="serif" font-style="italic" font-size="34" '
+        f'<text x="{W * 0.3:.0f}" y="{H - 50}" font-family="serif" font-style="italic" font-size="34" '
         f'fill="{INK}" text-anchor="middle">1 siesta = 2 calles</text>'
     )
     parts.append(
